@@ -1,0 +1,109 @@
+body {
+	font-family: Verdana, Arial, sans-serif;
+	color: #333;
+	margin: 0;
+}
+input[type="text"] {
+	width: 60px;
+	border: 1px solid #ddd;
+	padding: 3px;
+}
+input[type="checkbox"] {
+	vertical-align: middle;
+}
+input#url, input#selector {
+	width: 180px;
+}
+input#url {
+	background-repeat: no-repeat;
+	background-position: 5px 50%;
+}
+input#url.active {
+	background-image: url('../img/ajax_loader.gif');
+	padding-left: 25px;
+}
+h1, label {
+	font-size: 10px;
+}
+
+#ui > div {
+	position: fixed;
+	left: 0;
+	background: rgba(255,255,255,0.8);
+	width: 100%;
+	z-index: 10;
+}
+#ui > div > div {
+	padding: 10px;
+}
+#ui-top {
+	top: 0;
+	border-bottom: 1px solid #ccc;
+}
+#ui-bottom {
+	bottom: 0;
+	border-top: 1px solid #ccc;
+}
+.ui-left {
+	float: left;
+}
+.ui-right {
+	float: right;
+}
+
+#status {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	height: 50px;
+	width: 0;
+	background: rgba(34, 170, 34, 0.6);
+	z-index: 9;
+}
+
+#help {
+	display: none;
+	margin: 60px 0 10px 10px;
+}
+
+#noscript p {
+	color: #ee2222;
+	margin: 60px 0 10px 10px;
+}
+
+#content {
+	display: none;
+	position: absolute;
+	right: 10px;
+	top: 60px;
+}
+
+#preview {
+	position: fixed;
+	right: 10px;
+	top: 60px;
+}
+#preview img {
+	position: relative;
+	top: -500px;
+}
+
+#output {
+	margin: 60px 0 60px 10px;
+}
+#output a {
+	color: #22aa22;
+}
+#output a:hover{
+	color: #000;
+}
+
+.success {
+	color: #22aa22;
+}
+.error {
+	color: #aa2222;
+}
+.clear {
+	clear: both;
+}

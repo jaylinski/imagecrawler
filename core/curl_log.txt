@@ -1,0 +1,36 @@
+* About to connect() to oesterreich.orf.at port 80 (#0)
+*   Trying 194.232.104.167... * connected
+* Connected to oesterreich.orf.at (194.232.104.167) port 80 (#0)
+> GET / HTTP/1.0
+Host: oesterreich.orf.at
+Accept: */*
+
+< HTTP/1.1 200 OK
+< Date: Tue, 17 Apr 2012 18:17:10 GMT
+< Server: Server: Jetty(6.0.x)
+< X-Cache: HIT from oesterreich.orf.at
+< ETag: "IYDrBZxR283Hp/ebgaJt3w=="
+< Content-Type: text/html; charset=utf-8
+< Content-Length: 32748
+< Accept-Ranges: none
+< Connection: close
+< 
+* Closing connection #0
+* About to connect() to oesterreich.orf.at port 80 (#0)
+*   Trying 194.232.104.167... * connected
+* Connected to oesterreich.orf.at (194.232.104.167) port 80 (#0)
+> GET / HTTP/1.0
+Host: oesterreich.orf.at
+Accept: */*
+
+< HTTP/1.1 200 OK
+< Date: Tue, 17 Apr 2012 18:17:10 GMT
+< Server: Server: Jetty(6.0.x)
+< X-Cache: HIT from oesterreich.orf.at
+< ETag: "IYDrBZxR283Hp/ebgaJt3w=="
+< Content-Type: text/html; charset=utf-8
+< Content-Length: 32748
+< Accept-Ranges: none
+< Connection: close
+< 
+* Closing connection #0
