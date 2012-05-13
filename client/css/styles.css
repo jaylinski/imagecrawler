@@ -40,7 +40,7 @@ h1, label {
 	position: fixed;
 	left: 0;
 	background: rgba(255,255,255,0.8);
-	background-image: url('../img/stripes.png');
+	background-image: url('../img/ui-bg.png');
 	background-repeat: repeat;
 	width: 100%;
 	z-index: 10;
