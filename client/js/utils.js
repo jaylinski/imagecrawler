@@ -1,7 +1,7 @@
 function renderPreview(data) {
 	var previewImagesCount = 3;
 	if($("#showpreview").attr("checked") == "checked") {
-		$("#preview").prepend(data.image+"<br />");
+		$("#preview").prepend(data.image);
 		var preview_images = $("#preview img");
 		var temp_height = $(preview_images[0]).attr("height");
 		$(preview_images[0]).attr("height","0");
@@ -42,7 +42,7 @@ function hideContentLoader() {
 }
 
 function setTitle(text) {
-	$("title").html("ImageDownloader | "+text);
+	$("title").html(name+" | "+text);
 }
 
 function setPercentLoaded(imageNumber,linkArrayLength,error) {

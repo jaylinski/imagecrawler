@@ -29,6 +29,7 @@ input#url {
 input#url.active {
 	background-image: url('../img/ajax_loader.gif');
 	padding-left: 25px;
+	width: 158px;
 }
 
 h1, label {
@@ -86,9 +87,16 @@ h1, label {
 
 #content {
 	display: none;
+	height: 80%;
 	position: absolute;
 	right: 10px;
 	top: 60px;
+}
+#content iframe {
+	background-color: #fff;
+	border: none;
+	border-left: 1px solid #ccc;
+	height: 100%;
 }
 
 #preview {
@@ -98,6 +106,8 @@ h1, label {
 }
 #preview img {
 	position: relative;
+	display: block;
+	margin-bottom: 10px;
 	top: -500px;
 }
 
