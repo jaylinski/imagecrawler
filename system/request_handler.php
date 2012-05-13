@@ -26,9 +26,9 @@ if(isset($_GET['request'])) {
 	
 	if($_GET['request'] == 'getcontents') {
 	
-		$contenturl = $_POST['contenturl'];
-		$contentstart = $_POST['contentstart'];
-		$contentend = $_POST['contentend'];
+		$contenturl = $_REQUEST['contenturl'];
+		//$contentstart = $_POST['contentstart'];
+		//$contentend = $_POST['contentend'];
 		
 		if($contenturl != "") {
 			
@@ -61,26 +61,27 @@ if(isset($_GET['request'])) {
 			}
 			else {
 				// take a substring of the loaded content
-				if(is_int($contentstart) && $contentend == "") {
+				/*if(is_int($contentstart) && $contentend == "") {
 					$output = substr($output,$contentstart);
 				} else if (is_int($contentstart) && is_int($contentend)) {
 					$output = substr($output,$contentstart,$contentend);
-				}
+				}*/
 				
 				// tidy the html
 				$tidy = new tidy;
 				$tidy->parseString($output);
 				$tidy->cleanRepair();
-				$output = $tidy->Body();
+				$output = $tidy->html();
 				$output = $output->value;
-				$output = strip_tags($output,TAGSTOSTRIP);
+				//$output = strip_tags($output,TAGSTOSTRIP);
 				
 				// return it
-				$outputArray = array(
-					"success" => 1,
-					"content" => $output
-				);
-				output_array_as_json($outputArray);
+				//$outputArray = array(
+					//"success" => 1,
+					//"content" => $output
+				//);
+				//output_array_as_json($outputArray);
+				echo $output;
 			}
 		}
 		else {

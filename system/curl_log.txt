@@ -6,12 +6,12 @@ Host: oesterreich.orf.at
 Accept: */*
 
 < HTTP/1.1 200 OK
-< Date: Tue, 17 Apr 2012 18:17:10 GMT
+< Date: Sun, 13 May 2012 13:47:42 GMT
 < Server: Server: Jetty(6.0.x)
 < X-Cache: HIT from oesterreich.orf.at
-< ETag: "IYDrBZxR283Hp/ebgaJt3w=="
+< ETag: "T7smHlXYICL/g3PtcGQzLg=="
 < Content-Type: text/html; charset=utf-8
-< Content-Length: 32748
+< Content-Length: 33464
 < Accept-Ranges: none
 < Connection: close
 < 
@@ -24,12 +24,12 @@ Host: oesterreich.orf.at
 Accept: */*
 
 < HTTP/1.1 200 OK
-< Date: Tue, 17 Apr 2012 18:17:10 GMT
+< Date: Sun, 13 May 2012 13:47:42 GMT
 < Server: Server: Jetty(6.0.x)
 < X-Cache: HIT from oesterreich.orf.at
-< ETag: "IYDrBZxR283Hp/ebgaJt3w=="
+< ETag: "T7smHlXYICL/g3PtcGQzLg=="
 < Content-Type: text/html; charset=utf-8
-< Content-Length: 32748
+< Content-Length: 33464
 < Accept-Ranges: none
 < Connection: close
 < 

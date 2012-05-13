@@ -42,10 +42,11 @@ function startDownload() {
 	var max_length = $("input#max_length").attr("value");
 	getContents(contenturl,offset,max_length);
 	disableInput("#start");
-	setValue("#start","loading...");
+	setValue("#start","LOADING...");
 }
 
 function getContents(contenturl,offset,max_length) {
+	$("#content").html("<iframe src='core/request_handler.php?request=getcontents&contenturl="+contenturl+"'></iframe>");
 	$.ajax({
 		type: 'POST',
 		url: "core/request_handler.php?request=getcontents",
@@ -57,7 +58,7 @@ function getContents(contenturl,offset,max_length) {
 		},
 		success: function(data){
 			if(data.success) {
-				$("#content").html(data.content);
+				//$("#content").html("<iframe>"+unescape(data.content)+"</iframe>");
 				writeToConsole(
 					getGreatherThanEntity(2)+" loaded    "
 					+getGreatherThanEntity(2)+" "
@@ -82,7 +83,7 @@ function getContents(contenturl,offset,max_length) {
 				hideContentLoader();
 				setPercentLoaded(0,0,1);
 				enableInput("#start");
-				setValue("#start","start download");
+				setValue("#start","START DOWNLOAD");
 			}
 		},
 		error: function(){
@@ -106,7 +107,7 @@ function iterator(i,selectorAttribute) {
 		hideContentLoader();
 		setPercentLoaded(0,0,1);
 		enableInput("#start");
-		setValue("#start","start download");
+		setValue("#start","START DOWNLOAD");
 	} else {
 		writeToConsole(getGreatherThanEntity(15)+" REQUESTS COMPLETED",1);
 		scrollToBottom(1);
@@ -114,7 +115,7 @@ function iterator(i,selectorAttribute) {
 		disableInput("#stop");
 		setPercentLoaded(i,linkarrayLength);
 		enableInput("#start");
-		setValue("#start","start download");
+		setValue("#start","START DOWNLOAD");
 	}
 }
 

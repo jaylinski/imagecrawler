@@ -7,8 +7,6 @@ define("VERSION",			"0.2");
 define("LINK",				"http://oesterreich.orf.at/");
 define("SELECTOR",			".storyListItem a img");
 define("SELECTOR_ATTRIBUTE","src");
-define("CONTENTSTART",		"");
-define("CONTENTEND",		"");
 
 // paths & files
 define("OUTPUTPATH",		"_images/");
