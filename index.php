@@ -23,6 +23,8 @@ require_once('system/config.php');
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/<?php echo JQUERYVERSION; ?>/jquery.min.js"></script>
 		<script type="text/javascript">
 			var name = "<?php echo NAME; ?>";
+			var startbuttonvalue = "<?php echo STARTBUTTON; ?>";
+			var stopbuttonvalue = "<?php echo STOPBUTTON; ?>";
 		</script>
 		<script type="text/javascript" src="client/js/utils.js"></script>
 		<script type="text/javascript" src="client/js/main.js"></script>
@@ -40,8 +42,8 @@ require_once('system/config.php');
 						<input type="text" id="selector_attribute" value="<?php echo SELECTORATTRIBUTE; ?>" />
 					</div>
 					<div class="ui-right">
-						<input type="button" value="START DOWNLOAD" id="start" />
-						<input type="button" value="STOP" id="stop" />
+						<input type="button" value="<?php echo STARTBUTTON; ?>" id="start" />
+						<input type="button" value="<?php echo STOPBUTTON; ?>" id="stop" />
 					</div>
 					<div class="clear"></div>
 				</div>

@@ -7,58 +7,53 @@ require_once('utils.php');
 
 if(isset($_GET['request'])) {
 
-	if($_GET['request'] == 'saveimage') {
-		$contenturl = $_POST['contenturl'];
-		$result = save_image($_GET['image'], $contenturl);
-		
-		$message = "<span class=\"success\">";
-		$message.= date('H:i:s')." &gt;&gt; finished  &gt;&gt; ";
-		$message.= "<a href=".OUTPUTPATH.$result['basename']." target=\"blank\">".$result['basename']."</a> &gt;&gt; ".$result['width']."x".$result['height']." | ".$result['filesize'];
-		$message.= "</span><br />";
-		$image = "<img src=\"".$contenturl.$_GET['image']."\" alt=\"\" width=\"".$result['width']*IMGPREVIEWSIZE."\" height=\"".$result['height']*IMGPREVIEWSIZE."\" />";
-		$outputArray = array(
-			"message" => $message,
-			"image" => $image
-		);
-		header('Content-type: application/json');
-		echo json_encode($outputArray);
-	}
+	$request = $_GET['request'];
 	
-	if($_GET['request'] == 'getcontents') {
-	
-		$contenturl = $_REQUEST['contenturl'];
+	if($request == 'saveimage') {
 		
-		if($contenturl != "") {
+		if(isset($_GET['image']) && isset($_POST['contenturl'])) {
 			
-			// get website
-			$f = fopen('log/curl_log.txt', 'w');
-			$curl_options = array(
-				CURLOPT_URL => $contenturl,
-				CURLOPT_HEADER => 0,
-                CURLOPT_CONNECTTIMEOUT => 180,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => 'UTF-8',				
-				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_0,
-				CURLOPT_VERBOSE => 1,
-				CURLOPT_STDERR => $f
-			);
-			$curl = curl_init();
-			curl_setopt_array($curl, $curl_options);
-			if(curl_exec($curl) === false) {
-				$output = "";
+			$result = save_image($_GET['image'], $_POST['contenturl']);
+			
+			if($result['success']) {
+				$message = build_message($result);
+				$image = build_image($result);
+				
+				$outputArray = array(
+					"success" => 1,
+					"message" => $message,
+					"image" => $image
+				);
+				
 			} else {
-				$output = curl_exec($curl);
-			}
-			
-			// check if website was loaded
-			if (empty($output)) {
 				$outputArray = array(
 					"success" => 0,
-					"content" => $output
+					"message" => PHPERROR.$result['message']
 				);
-				output_array_as_json($outputArray);
 			}
-			else {
+		}
+		else {
+			$outputArray = array(
+				"success" => 0,
+				"message" => NOPARAMS
+			);
+		}
+		
+		// output
+		output_array_as_json($outputArray);
+	}
+	
+	if($request == 'getcontents') {		
+		
+		if(isset($_REQUEST['contenturl']) && $_REQUEST['contenturl'] != "") {
+			
+			$contenturl = $_REQUEST['contenturl'];
+			$result = get_content_from_url($contenturl);
+			
+			// check if website was loaded
+			if($result['success']) {
+				$output = $result['output'];
+				
 				if(USETIDY) {
 					// tidy the html
 					$tidy = new tidy;
@@ -66,21 +61,32 @@ if(isset($_GET['request'])) {
 					$tidy->cleanRepair();
 					$output = $tidy->body();
 					$output = $output->value;
-				}				
+				}
+				
 				$output = strip_tags($output,ALLOWEDTAGS);
 				
-				// return it
 				$outputArray = array(
 					"success" => 1,
 					"content" => $output
 				);
-				output_array_as_json($outputArray);
+				
+			}
+			else {
+				$outputArray = array(
+					"success" => 0,
+					"message" => CURLERROR.$result['message']
+				);
 			}
 		}
 		else {
-			$outputArray = array("success" => 0);
-			output_array_as_json($outputArray);
+			$outputArray = array(
+				"success" => 0,
+				"message" => NOPARAMS
+			);			
 		}
+		
+		// output
+		output_array_as_json($outputArray);
 	}
 	
 }

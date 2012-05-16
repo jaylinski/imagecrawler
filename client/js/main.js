@@ -4,6 +4,13 @@ $(document).ready(function() {
 	disableInput("#stop");
 	
 	initEventObjects();
+	
+	/*$('#ui-top input').focus(function() {
+		$(this).animate({ width: 300 }, {duration: 500});
+	});
+	$('#ui-top input').blur(function() {
+		$(this).animate({ width: 200 }, {duration: 300});
+	});*/
 });
 
 function initEventObjects() {
@@ -44,7 +51,6 @@ function startDownload() {
 }
 
 function getContents(contenturl) {
-	//$("#content").html("<iframe src='system/ajax.php?request=getcontents&contenturl="+contenturl+"'></iframe>");
 	$.ajax({
 		type: 'POST',
 		url: "system/ajax.php?request=getcontents",
@@ -75,17 +81,17 @@ function getContents(contenturl) {
 				iterator(i,selectorAttribute);
 				enableInput("#stop");
 			} else {
-				writeToConsole(getGreatherThanEntity(15)+" ERROR: THE PHP SCRIPT FAILED "+getGreatherThanEntity(2)+" CHECK URL",0);
+				writeToConsole(getGreatherThanEntity(15)+" "+data.message,0);
 				scrollToBottom(1);
 				setLoadBar(0,0,1);
 				hideContentLoader();
 				setPercentLoaded(0,0,1);
 				enableInput("#start");
-				setValue("#start","START DOWNLOAD");
+				setValue("#start",startbuttonvalue);
 			}
 		},
 		error: function(){
-			writeToConsole("ERROR ON "+getGreatherThanEntity(2)+" "+contenturl, 0);
+			writeToConsole("ERROR ON "+getGreatherThanEntity(2)+" "+contenturl+" | check out php-script for errors", 0);
 			scrollToBottom(1);
 			hideContentLoader();
 		}
@@ -105,7 +111,7 @@ function iterator(i,selectorAttribute) {
 		hideContentLoader();
 		setPercentLoaded(0,0,1);
 		enableInput("#start");
-		setValue("#start","START DOWNLOAD");
+		setValue("#start",startbuttonvalue);
 	} else {
 		writeToConsole(getGreatherThanEntity(15)+" REQUESTS COMPLETED",1);
 		scrollToBottom(1);
@@ -113,7 +119,7 @@ function iterator(i,selectorAttribute) {
 		disableInput("#stop");
 		setPercentLoaded(i,linkarrayLength);
 		enableInput("#start");
-		setValue("#start","START DOWNLOAD");
+		setValue("#start",startbuttonvalue);
 	}
 }
 
@@ -133,14 +139,24 @@ function saveImage(img,selectorAttribute) {
 			scrollToBottom(1);
 		},
 		success: function(data){
-			$("#output").append(data.message);
-			renderPreview(data);
-			scrollToBottom(1);
-			i++;
-			iterator(i,selectorAttribute);
+			if(data.success) {
+				writeToConsole(data.message,1);
+				renderPreview(data);
+				scrollToBottom(1);
+				i++;
+				iterator(i,selectorAttribute);
+			} else {
+				writeToConsole(getGreatherThanEntity(15)+" "+data.message,0);
+				scrollToBottom(1);
+				setLoadBar(0,0,1);
+				hideContentLoader();
+				setPercentLoaded(0,0,1);
+				enableInput("#start");
+				setValue("#start",startbuttonvalue);
+			}
 		},
 		error: function(){
-			writeToConsole(getGreatherThanEntity(15)+" ERROR ON "+img,0);
+			writeToConsole(getGreatherThanEntity(15)+" ERROR ON "+img+" | check out php-script for errors",0);
 			scrollToBottom(1);
 		}
 	});

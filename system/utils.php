@@ -17,11 +17,18 @@ function save_image($image, $contenturl) {
 	else if($imagetype == IMAGETYPE_PNG){
 		$src = imagecreatefrompng($contenturl.$image);
 	}
+	else {
+		$return = array(
+			"success" => false,
+			"message" => UNSUPPORTEDIMGTYPE
+		);
+		return $return;
+	}
 
 	$dest = imagecreatetruecolor($size[0], $size[1]);
 	imagecopy($dest, $src, 0, 0, 0, 0, $size[0], $size[1]);
 	
-	// Output and free from memory
+	// output and free from memory
 	make_output_dir();
 	
 	if($imagetype == IMAGETYPE_GIF){
@@ -48,6 +55,47 @@ function save_image($image, $contenturl) {
 		"basename" => $basename
 	);
 	
+	return $return;
+}
+
+function build_message($resultArray) {
+	$message = "&gt;&gt; finished  &gt;&gt; ";
+	$message.= "<a href=".OUTPUTPATH.$resultArray['basename']." target=\"blank\">".$resultArray['basename']."</a> &gt;&gt; ".$resultArray['width']."x".$resultArray['height']." | ".$resultArray['filesize'];
+	return $message;		
+}
+
+function build_image($resultArray) {
+	$image = "<img src=\"".$_POST['contenturl'].$_GET['image']."\" alt=\"\" width=\"".$resultArray['width']*IMGPREVIEWSIZE."\" height=\"".$resultArray['height']*IMGPREVIEWSIZE."\" />";
+	return $image;			
+}
+
+function get_content_from_url($url) {
+	$f = fopen('log/curl_log.txt', 'w');
+	$curl_options = array(
+		CURLOPT_URL => $url,
+		CURLOPT_HEADER => 0,
+        CURLOPT_CONNECTTIMEOUT => 180,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => 'UTF-8',				
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_0,
+		CURLOPT_VERBOSE => 1,
+		CURLOPT_STDERR => $f
+	);
+	$curl = curl_init();
+	curl_setopt_array($curl, $curl_options);
+	$output = curl_exec($curl);
+	
+	if($output === false) {
+		$return = array(
+			"success" => false,
+			"message" => curl_error($curl)
+		);
+	} else {
+		$return = array(
+			"success" => true,
+			"output" => $output
+		);
+	}
 	return $return;
 }
 
