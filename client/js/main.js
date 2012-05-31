@@ -38,10 +38,10 @@ function initEventObjects() {
 }
 
 function startDownload() {
-	resetLoadBar();
-	setTitle("loading...");
 	$("#help").hide();
+	resetLoadBar();
 	resetConsole();
+	setTitle("loading...");
 	writeToConsole(getGreatherThanEntity(15)+" STARTING DOWNLOAD PROCESS",1);
 	i = 0;
 	contenturl = $("input#url").attr("value");
