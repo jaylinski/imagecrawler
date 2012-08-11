@@ -1,9 +1,9 @@
 <?php
 
 // core
-define("VERSION",			"0.3");
+define("VERSION",			"0.31");
 define("NAME",				"ImageCrawler");
-define("JQUERYVERSION",		"1.7.2");
+define("JQUERYVERSION",		"1.8.0");
 
 // default values
 define("LINK",				"http://help.github.com/");
