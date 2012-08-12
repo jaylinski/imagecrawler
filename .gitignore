@@ -2,4 +2,6 @@ _projektdaten/*
 _projektdaten/
 _images/*
 _images/
+system/log/
+system/log/*
 *.project

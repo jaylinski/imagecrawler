@@ -48,41 +48,49 @@ if(isset($_GET['request'])) {
 		if(isset($_REQUEST['contenturl']) && $_REQUEST['contenturl'] != "") {
 			
 			$contenturl = $_REQUEST['contenturl'];
-			$result = get_content_from_url($contenturl);
 			
-			// check if website was loaded
-			if($result['success']) {
-				$output = $result['output'];
+			if(filter_var($contenturl, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
 				
-				if(USETIDY) {
-					// tidy the html
-					$tidy = new tidy;
-					$tidy->parseString($output,$tidyConfig,"UTF8");
-					$tidy->cleanRepair();
-					$output = $tidy->body();
-					$output = $output->value;
+				$result = get_content_from_url($contenturl);
+				
+				// check if website was loaded
+				if($result['success']) {
+					$output = $result['output'];
+					
+					if(USETIDY) {
+						// tidy the html
+						$tidy = new tidy;
+						$tidy->parseString($output,$tidyConfig,"UTF8");
+						$tidy->cleanRepair();
+						$output = $tidy->body();
+						$output = $output->value;
+					}
+					
+					$output = strip_tags($output,ALLOWEDTAGS);
+					
+					$outputArray = array(
+						"success" => 1,
+						"content" => $output
+					);					
 				}
-				
-				$output = strip_tags($output,ALLOWEDTAGS);
-				
-				$outputArray = array(
-					"success" => 1,
-					"content" => $output
-				);
-				
-			}
-			else {
+				else {
+					$outputArray = array(
+						"success" => 0,
+						"message" => CURLERROR.$result['message']
+					);
+				}
+			} else {
 				$outputArray = array(
 					"success" => 0,
-					"message" => CURLERROR.$result['message']
+					"message" => INVALIDURL
 				);
-			}
+			}			
 		}
 		else {
 			$outputArray = array(
 				"success" => 0,
 				"message" => NOPARAMS
-			);			
+			);
 		}
 		
 		// output

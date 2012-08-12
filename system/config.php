@@ -4,9 +4,10 @@
 define("VERSION",			"0.31");
 define("NAME",				"ImageCrawler");
 define("JQUERYVERSION",		"1.8.0");
+define("DEBUG", 			false);
 
 // default values
-define("LINK",				"http://help.github.com/");
+define("LINK",				"http://twitter.com/github/");
 define("SELECTOR",			"a img");
 define("SELECTORATTRIBUTE",	"src");
 define("STARTBUTTON", 		"START DOWNLOAD");
@@ -15,6 +16,7 @@ define("STOPBUTTON", 		"STOP");
 // paths & files
 define("OUTPUTPATH",		"_images/");
 define("FOLDERPATH",		"../");
+define("LOGPATH", 			"system/log");		
 define("IMGPREVIEWSIZE",	1.0);
 define("DOCSPATH",			"_doc/");
 define("HELPDOC",			"help.html");
@@ -30,5 +32,10 @@ define("UNSUPPORTEDIMGTYPE","unsupported filetype");
 define("PHPERROR",			"error in php-script &gt;&gt; ");
 define("NOPARAMS",			"no params found: check url");
 define("CURLERROR",			"cURL error &gt;&gt; ");
+define("INVALIDURL",		"invalid URL. provide full URL with only ASCII characters.");
+define("URLCOMPILEFAIL",	"could not compile a valid url");
+
+// other
+define("INPUTEXTLENGTH",	100);
 
 ?>

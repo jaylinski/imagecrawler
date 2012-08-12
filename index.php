@@ -25,6 +25,7 @@ require_once('system/config.php');
 			var name = "<?php echo NAME; ?>";
 			var startbuttonvalue = "<?php echo STARTBUTTON; ?>";
 			var stopbuttonvalue = "<?php echo STOPBUTTON; ?>";
+			var inputExtensionLength = <?php echo INPUTEXTLENGTH; ?>;
 		</script>
 		<script type="text/javascript" src="client/js/utils.js"></script>
 		<script type="text/javascript" src="client/js/main.js"></script>

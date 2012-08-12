@@ -10,7 +10,7 @@ input[type="button"] {
 	padding: 2px 6px;
 }
 input[type="text"] {
-	width: 60px;
+	width: 70px;
 	border: 1px solid #ddd;
 	padding: 3px;
 	display: inline-block;
@@ -19,10 +19,8 @@ input[type="text"] {
 input[type="checkbox"] {
 	vertical-align: middle;
 }
-input#url, input#selector {
-	width: 180px;
-}
 input#url {
+	width: 200px;
 	background-repeat: no-repeat;
 	background-position: 5px 50%;
 }

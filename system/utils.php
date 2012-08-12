@@ -1,59 +1,96 @@
 <?php
 
 function save_image($image, $contenturl) {
-	$pathinfos = pathinfo($image);
-	$basename = $pathinfos['basename'];
-	$filename = $pathinfos['filename'];
-	$extension = $pathinfos['extension'];
-	$size = getimagesize($contenturl.$image);
 	
-	$imagetype = exif_imagetype($contenturl.$image);
-	if($imagetype == IMAGETYPE_GIF){
-		$src = imagecreatefromgif($contenturl.$image);
+	$imgPathInfo = pathinfo($image);
+	$urlPathInfo = parse_url($contenturl);
+	
+	//print_r($imgPathInfo);
+	//print_r($urlPathInfo);
+	
+	if(filter_var($imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+		$dirname = $imgPathInfo['dirname'];
+	} else {
+		if($urlPathInfo['path']) {
+			$urlPathPathInfo = pathinfo($urlPathInfo['path']);
+			if(strpos($urlPathPathInfo['dirname'], '\\') !== FALSE) {
+				$dirname = $urlPathInfo['scheme']."://".$urlPathInfo['host']."/".$imgPathInfo['dirname'];
+			} else {
+				$dirname = $urlPathInfo['scheme']."://".$urlPathInfo['host'].$urlPathPathInfo['dirname']."/".$imgPathInfo['dirname'];
+			}			
+		} else {
+			$dirname = $contenturl.$imgPathInfo['dirname'];
+		}
 	}
-	else if($imagetype == IMAGETYPE_JPEG){
-		$src = imagecreatefromjpeg($contenturl.$image);
-	}
-	else if($imagetype == IMAGETYPE_PNG){
-		$src = imagecreatefrompng($contenturl.$image);
-	}
-	else {
+	
+	$imgPath = $dirname."/".$imgPathInfo['basename'];
+	
+	if(filter_var($imgPath, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+		
+		$size = getimagesize($imgPath);
+
+		$imagetype = exif_imagetype($imgPath);
+		
+		if($imagetype == IMAGETYPE_GIF){
+			$src = imagecreatefromgif($imgPath);
+			$imgFileType = ".gif";
+		}
+		else if($imagetype == IMAGETYPE_JPEG){
+			$src = imagecreatefromjpeg($imgPath);
+			$imgFileType = ".jpg";
+		}
+		else if($imagetype == IMAGETYPE_PNG){
+			$src = imagecreatefrompng($imgPath);
+			$imgFileType = ".png";
+		}
+		else {
+			$return = array(
+				"success" => false,
+				"message" => UNSUPPORTEDIMGTYPE
+			);
+			return $return;
+		}
+		
+		$dest = imagecreatetruecolor($size[0], $size[1]);
+		imagealphablending($dest, false);
+		imagesavealpha($dest,true);		
+		imagecopy($dest, $src, 0, 0, 0, 0, $size[0], $size[1]);
+		
+		// output and free from memory
+		make_output_dir();
+		$outputPath = FOLDERPATH.OUTPUTPATH.sanitize_file_name($imgPathInfo['filename'].$imgFileType);
+		
+		if($imagetype == IMAGETYPE_GIF){
+			imagegif($dest, $outputPath);
+		}
+		else if($imagetype == IMAGETYPE_JPEG){
+			imagejpeg($dest, $outputPath);
+		}
+		else if($imagetype == IMAGETYPE_PNG){
+			imagepng($dest, $outputPath);
+		}
+	
+		imagedestroy($dest);
+		imagedestroy($src);
+		
+		$filesize = format_bytes(filesize($outputPath));
+		
+		$return = array(
+			"success" => true,
+			"message" => "",
+			"filesize" => $filesize,
+			"width" => $size[0],
+			"height" => $size[1],
+			"basename" => sanitize_file_name($imgPathInfo['filename'].$imgFileType),
+			"imgpath" => $imgPath
+		);
+		
+	} else {
 		$return = array(
 			"success" => false,
-			"message" => UNSUPPORTEDIMGTYPE
+			"message" => URLCOMPILEFAIL.": ".$imgPath
 		);
-		return $return;
 	}
-
-	$dest = imagecreatetruecolor($size[0], $size[1]);
-	imagecopy($dest, $src, 0, 0, 0, 0, $size[0], $size[1]);
-	
-	// output and free from memory
-	make_output_dir();
-	
-	if($imagetype == IMAGETYPE_GIF){
-		imagegif($dest, FOLDERPATH.OUTPUTPATH.$basename);
-	}
-	else if($imagetype == IMAGETYPE_JPEG){
-		imagejpeg($dest, FOLDERPATH.OUTPUTPATH.$basename);
-	}
-	else if($imagetype == IMAGETYPE_PNG){
-		imagepng($dest, FOLDERPATH.OUTPUTPATH.$basename);
-	}
-
-	imagedestroy($dest);
-	imagedestroy($src);
-	
-	$filesize = format_bytes(filesize(FOLDERPATH.OUTPUTPATH.$basename));
-	
-	$return = array(
-		"success" => true,
-		"message" => "",
-		"filesize" => $filesize,
-		"width" => $size[0],
-		"height" => $size[1],
-		"basename" => $basename
-	);
 	
 	return $return;
 }
@@ -65,11 +102,12 @@ function build_message($resultArray) {
 }
 
 function build_image($resultArray) {
-	$image = "<img src=\"".$_POST['contenturl'].$_GET['image']."\" alt=\"\" width=\"".$resultArray['width']*IMGPREVIEWSIZE."\" height=\"".$resultArray['height']*IMGPREVIEWSIZE."\" />";
+	$image = "<img src=\"".$resultArray['imgpath']."\" alt=\"\" width=\"".$resultArray['width']*IMGPREVIEWSIZE."\" height=\"".$resultArray['height']*IMGPREVIEWSIZE."\" />";
 	return $image;			
 }
 
 function get_content_from_url($url) {
+	make_log_dir();
 	$f = fopen('log/curl_log.txt', 'w');
 	$curl_options = array(
 		CURLOPT_URL => $url,
@@ -116,6 +154,15 @@ function make_output_dir() {
 	if(!file_exists(FOLDERPATH.OUTPUTPATH)) {
 		mkdir(FOLDERPATH.OUTPUTPATH);
 	}
+}
+function make_log_dir() {
+	if(!file_exists(FOLDERPATH.LOGPATH)) {
+		mkdir(FOLDERPATH.LOGPATH);
+	}
+}
+
+function sanitize_file_name($str) {
+	return preg_replace('/([^[:alnum:]\._-\s]*)/','',$str);
 }
 
 ?>

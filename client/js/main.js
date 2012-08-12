@@ -4,13 +4,6 @@ $(document).ready(function() {
 	disableInput("#stop");
 	
 	initEventObjects();
-	
-	/*$('#ui-top input').focus(function() {
-		$(this).animate({ width: 300 }, {duration: 500});
-	});
-	$('#ui-top input').blur(function() {
-		$(this).animate({ width: 200 }, {duration: 300});
-	});*/
 });
 
 function initEventObjects() {
@@ -34,6 +27,14 @@ function initEventObjects() {
 	$("#showhelp").click(function() {
 		$("#help").toggle();
 		scrollToTop();
+	});
+	$('#ui-top input[type="text"]').focus(function() {
+		var tmpWidth = $(this).width();
+		$(this).animate({ width: tmpWidth + inputExtensionLength }, {duration: 500});
+	});
+	$('#ui-top input[type="text"]').blur(function() {
+		var tmpWidth = $(this).width();
+		$(this).animate({ width: tmpWidth - inputExtensionLength }, {duration: 200});
 	});
 }
 
@@ -91,7 +92,7 @@ function getContents(contenturl) {
 			}
 		},
 		error: function(){
-			writeToConsole("ERROR ON "+getGreatherThanEntity(2)+" "+contenturl+" | check out php-script for errors", 0);
+			writeToConsole(getGreatherThanEntity(2)+" ERROR ON  "+getGreatherThanEntity(2)+" "+contenturl+" | error in php-script", 0);
 			scrollToBottom(1);
 			hideContentLoader();
 		}
@@ -101,7 +102,13 @@ function getContents(contenturl) {
 function iterator(i,selectorAttribute) {
 	if(linkarray.length > i) {
 		var img = $(linkarray[i]).attr(selectorAttribute);
-		saveImage(img,selectorAttribute);
+		if(img != "") {
+			saveImage(img,selectorAttribute);
+		} else {
+			writeToConsole(getGreatherThanEntity(2)+" INFO      "+getGreatherThanEntity(2)+" SKIPPED EMPTY IMG",0);
+			i++;
+			iterator(i,selectorAttribute);
+		}		
 		setLoadBar(i,linkarrayLength);
 		setPercentLoaded(i,linkarrayLength);
 	} else if(linkarray.length == 0) {
@@ -156,7 +163,7 @@ function saveImage(img,selectorAttribute) {
 			}
 		},
 		error: function(){
-			writeToConsole(getGreatherThanEntity(15)+" ERROR ON "+img+" | check out php-script for errors",0);
+			writeToConsole(getGreatherThanEntity(15)+" ERROR ON "+img+" | error in php-script",0);
 			scrollToBottom(1);
 		}
 	});
