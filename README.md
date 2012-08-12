@@ -1,8 +1,12 @@
 ImageCrawler
 ============
 
-AJAX Image Crawler, based on jQuery
+AJAX Image Crawler, based on jQuery.
 
-This software is still beta!
+* Saves images via cURL and JavaScript (jQuery + AJAX).
+* Optimized for Apache directory listings.
+* Can  handle JPG, PNG and GIF
 
-More information will follow!
+Requirements:
+* Webserver with at least PHP 5.3
+* Tidy extension
