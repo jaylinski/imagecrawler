@@ -165,4 +165,20 @@ function sanitize_file_name($str) {
 	return preg_replace('/([^[:alnum:]\._-\s]*)/','',$str);
 }
 
+function check_extensions() {
+	
+	global $extensions;
+	$outputArray = array("success" => 1, "message" => "");
+	
+	foreach($extensions as $extension => $priority) {
+		if (!extension_loaded($extension)) {
+			if($priority == 1) {
+				$outputArray['success'] = 0;
+				$outputArray['message'] .= "ERROR: ".$extension." extension not loaded. ";
+			}
+		}
+	}
+	return $outputArray;
+}
+
 ?>

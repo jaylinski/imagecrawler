@@ -7,6 +7,18 @@ require_once('utils.php');
 
 if(isset($_GET['request'])) {
 
+	// check if extensions are loaded
+	$extension_check = check_extensions();
+	if(!$extension_check['success']) {
+		$outputArray = array(
+			"success" => 0,
+			"message" => $extension_check['message']
+		);
+		output_array_as_json($outputArray);
+		exit;
+	}
+	
+	// process request
 	$request = $_GET['request'];
 	
 	if($request == 'saveimage') {

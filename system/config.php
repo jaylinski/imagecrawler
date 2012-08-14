@@ -37,5 +37,6 @@ define("URLCOMPILEFAIL",	"could not compile a valid url");
 
 // other
 define("INPUTEXTLENGTH",	100);
+$extensions = 				array("Tidy" => USETIDY, "cURL" => 1);
 
 ?>

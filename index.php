@@ -69,6 +69,9 @@ require_once('system/config.php');
 			</div>
 		</div>
 		<div id="status"></div>
+		<noscript id="noscript">
+			<p><?php echo NOJS; ?></p>
+		</noscript>
 		<div id="help">
 			<p><?php echo nl2br(file_get_contents(DOCSPATH.HELPDOC)); ?></p>
 		</div>
@@ -77,8 +80,5 @@ require_once('system/config.php');
 		<div id="content">
 			<iframe id="content_iframe"><html><head></head><body></body></html></iframe>
 		</div>
-		<noscript id="noscript">
-			<p><?php echo NOJS; ?></p>
-		</noscript>
 	</body>
 </html>
