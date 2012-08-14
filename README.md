@@ -10,7 +10,7 @@ AJAX Image Crawler, based on PHP and jQuery.
 * Graphical display of download progress and current pictures.
 * Optimized for Apache directory listings.
 * Can  handle JPG, PNG and GIF
-* Preserves alpha information
+* Preserves alpha information of images
 * Logs cURL requests in `system/log/`
 * Neat config-File: `system/config.php`
 

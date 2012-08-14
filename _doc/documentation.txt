@@ -1,1 +1,12 @@
 DOCUMENTATION
+=============
+
+User story 1:
+
+Download pictures from a Apache directory listing.
+
+> Insert URL: "http://www.example.com/files/"
+> Insert Selector: "a"
+> Insert Attribute: "href"
+> Press "START DOWNLOAD"
+> Check out images in your "_images" folder

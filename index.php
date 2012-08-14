@@ -4,7 +4,7 @@
  * @author Jakob Linskeseder
  * 
  * == DESCRIPTION ==
- * Saves images via cURL and JavaScript (jQuery + AJAX).
+ * Asynchronously saves images via cURL.
  * Optimized for Apache directory listings.
  *
  */
