@@ -8,8 +8,11 @@ function save_image($image, $contenturl) {
 	//print_r($imgPathInfo);
 	//print_r($urlPathInfo);
 	
+	// generate url
 	if(filter_var($imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
 		$dirname = $imgPathInfo['dirname'];
+	} else if(filter_var("http:".$imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+		$dirname = "http:".$imgPathInfo['dirname'];
 	} else {
 		if($urlPathInfo['path']) {
 			$urlPathPathInfo = pathinfo($urlPathInfo['path']);
@@ -25,6 +28,7 @@ function save_image($image, $contenturl) {
 	
 	$imgPath = $dirname."/".$imgPathInfo['basename'];
 	
+	// get image from url
 	if(filter_var($imgPath, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
 		
 		$size = getimagesize($imgPath);

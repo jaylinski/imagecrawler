@@ -16,6 +16,9 @@ input[type="text"] {
 	display: inline-block;
 	margin-right: 5px;
 }
+input[type="text"]:hover {
+	border-color: #bbb;
+}
 input[type="checkbox"] {
 	vertical-align: middle;
 }
@@ -107,6 +110,7 @@ h1, label {
 	display: block;
 	margin-bottom: 10px;
 	top: -500px;
+	float: right;
 }
 
 #output {
