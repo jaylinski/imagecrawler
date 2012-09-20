@@ -2,6 +2,7 @@ function renderPreview(data) {
 	var previewImagesCount = 3;
 	if($("#showpreview").attr("checked") == "checked") {
 		$("#preview").prepend(data.image);
+		$("#preview").prepend("<div class='clear'></div>");
 		var preview_images = $("#preview img");
 		var temp_height = $(preview_images[0]).attr("height");
 		$(preview_images[0]).attr("height","0");
