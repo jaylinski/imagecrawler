@@ -3,7 +3,7 @@
 // core
 define("VERSION",			"0.42");
 define("NAME",				"ImageCrawler");
-define("JQUERYVERSION",		"1.8.0");
+define("JQUERYVERSION",		"1.8.2");
 define("DEBUG", 			false);
 
 // default values
