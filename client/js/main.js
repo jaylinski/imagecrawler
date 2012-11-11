@@ -52,7 +52,7 @@ function startDownload() {
 		type: 'GET',
 		url: "system/ajax.php?request=checkextensions",
 		beforeSend: function(){
-			writeToConsole(getGreatherThanEntity(2)+" INFO      "+getGreatherThanEntity(2)+" checking extensions");
+			writeToConsole(getGreatherThanEntity(2)+" loading   "+getGreatherThanEntity(2)+" checking extensions");
 			scrollToBottom(1);
 		},
 		success: function(data){
