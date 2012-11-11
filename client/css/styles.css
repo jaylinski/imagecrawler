@@ -33,6 +33,10 @@ input#url.active {
 	width: 158px;
 }
 
+abbr {
+	cursor: help;
+}
+
 h1, label {
 	font-size: 10px;
 }
@@ -128,6 +132,10 @@ h1, label {
 }
 .error {
 	color: #aa2222;
+}
+.debug {
+	color: #AA2222;
+	font-weight: bold;
 }
 .clear {
 	clear: both;

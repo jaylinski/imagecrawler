@@ -60,7 +60,8 @@ function setLoadBar(imageNumber,linkArrayLength,error) {
 	var percentage = formatPercentLoaded(imageNumber,linkArrayLength);
 	var backgroundColor = $("#status").css("background-color");
 	var backgroundColorError = $(".error").css("color");
-	$("#status").css({"background-color":backgroundColor,"width":percentage+"%"});
+	$("#status").css({"background-color":backgroundColor});
+	$("#status").animate({width: percentage+"%"}, 200);
 	if(typeof error != "undefined") {
 		$("#status").css({"background-color":backgroundColorError,"width":"100%"});
 	}

@@ -18,6 +18,7 @@ AJAX Image Crawler, based on PHP and jQuery.
 * Webserver with at least PHP 5.3
 * cURL extension
 * Tidy extension (recommended)
+* openSSL extension (for https support)
 
 ###Soon to come:
 * HTTPS support

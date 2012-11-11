@@ -23,6 +23,7 @@ require_once('system/config.php');
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/<?php echo JQUERYVERSION; ?>/jquery.min.js"></script>
 		<script type="text/javascript">
 			var name = "<?php echo NAME; ?>";
+			var debug = <?php echo DEBUG; ?>;
 			var startbuttonvalue = "<?php echo STARTBUTTON; ?>";
 			var stopbuttonvalue = "<?php echo STOPBUTTON; ?>";
 			var inputExtensionLength = <?php echo INPUTEXTLENGTH; ?>;
@@ -52,7 +53,13 @@ require_once('system/config.php');
 			<div id="ui-bottom">
 				<div>
 					<div class="ui-left">
-						<h1><?php echo NAME; ?> v<?php echo VERSION; ?></h1>
+						<h1>
+							<?php echo NAME; ?> <?php echo VERSION; ?>
+							<?php if(DEBUG) { ?>
+								&nbsp;&nbsp;&nbsp;
+								<abbr title="Deactivate in 'system/config.php'."><span class="debug">DEBUG</span></abbr>
+							<? } ?>
+						</h1>
 					</div>
 					<div class="ui-right">
 						<label for="showconsole">SHOW CONSOLE</label>

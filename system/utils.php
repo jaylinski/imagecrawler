@@ -13,6 +13,8 @@ function save_image($image, $contenturl) {
 		$dirname = $imgPathInfo['dirname'];
 	} else if(filter_var("http:".$imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
 		$dirname = "http:".$imgPathInfo['dirname'];
+	} else if(filter_var("https:".$imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+		$dirname = "https:".$imgPathInfo['dirname'];
 	} else {
 		if($urlPathInfo['path']) {
 			$urlPathPathInfo = pathinfo($urlPathInfo['path']);
@@ -112,29 +114,48 @@ function build_image($resultArray) {
 
 function get_content_from_url($url) {
 	make_log_dir();
-	$f = fopen('log/curl_log.txt', 'w');
+	$curl_log = fopen('log/curl_log.txt', 'w');
 	$curl_options = array(
 		CURLOPT_URL => $url,
 		CURLOPT_HEADER => 0,
-        CURLOPT_CONNECTTIMEOUT => 180,
+        CURLOPT_CONNECTTIMEOUT => CONNECTTIMEOUT,
 		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => 'UTF-8',				
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_0,
+		CURLOPT_ENCODING => CURLENCODING,
+		CURLOPT_SSL_VERIFYPEER => SSLVERIFYPEER,
+		CURLOPT_FOLLOWLOCATION => true,
 		CURLOPT_VERBOSE => 1,
-		CURLOPT_STDERR => $f
+		CURLOPT_STDERR => $curl_log
 	);
 	$curl = curl_init();
 	curl_setopt_array($curl, $curl_options);
 	$output = curl_exec($curl);
+	$output_info = curl_getinfo($curl);
 	
 	if($output === false) {
 		$return = array(
 			"success" => false,
+			"info" => array(
+				"url" => 0,
+				"size" => 0
+			),
 			"message" => curl_error($curl)
+		);
+	} else if($output_info["http_code"] == 404 && !IGNOREHTTPSTATUS) {
+		$return = array(
+			"success" => false,
+			"info" => array(
+				"url" => $output_info["url"],
+				"size" => 0
+			),
+			"message" => $output_info["http_code"]." site not found",
 		);
 	} else {
 		$return = array(
 			"success" => true,
+			"info" => array(
+				"url" => $output_info["url"],
+				"size" => $output_info["size_download"]
+			),
 			"output" => $output
 		);
 	}
@@ -172,7 +193,7 @@ function sanitize_file_name($str) {
 function check_extensions() {
 	
 	global $extensions;
-	$outputArray = array("success" => 1, "message" => "");
+	$outputArray = array("success" => 1, "notice" => 0, "message" => "");
 	
 	foreach($extensions as $extension => $priority) {
 		if (!extension_loaded($extension)) {
@@ -180,8 +201,16 @@ function check_extensions() {
 				$outputArray['success'] = 0;
 				$outputArray['message'] .= "ERROR: ".$extension." extension not loaded. ";
 			}
+			if($priority == 2) {
+				$outputArray['notice']  = 1;
+				$outputArray['message'] .= "NOTICE: ".$extension." extension should be activated. ";
+			}
 		}
 	}
+	if(empty($outputArray["message"])) {
+		$outputArray["message"] = "all extensions loaded";
+	}
+	
 	return $outputArray;
 }
 

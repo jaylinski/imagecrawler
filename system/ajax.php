@@ -1,25 +1,35 @@
 <?php
 
-set_time_limit(180); // for big websites
-
 require_once('config.php');
 require_once('utils.php');
 
-if(isset($_GET['request'])) {
+set_time_limit(CONNECTTIMEOUT); // for big websites
 
-	// check if extensions are loaded
-	$extension_check = check_extensions();
-	if(!$extension_check['success']) {
-		$outputArray = array(
-			"success" => 0,
-			"message" => $extension_check['message']
-		);
-		output_array_as_json($outputArray);
-		exit;
-	}
+if(isset($_GET['request'])) {
 	
 	// process request
 	$request = $_GET['request'];
+	
+	if($request == 'checkextensions') {
+		
+		// check if extensions are loaded
+		$extension_check = check_extensions();
+		
+		if($extension_check['success']) {
+			$outputArray = array(
+				"success" => 1,
+				"message" => $extension_check['message'],
+			);
+			output_array_as_json($outputArray);
+		} else {
+			$outputArray = array(
+				"success" => 0,
+				"message" => $extension_check['message']
+			);
+			output_array_as_json($outputArray);
+			exit;
+		}		
+	}
 	
 	if($request == 'saveimage') {
 		
@@ -55,7 +65,7 @@ if(isset($_GET['request'])) {
 		output_array_as_json($outputArray);
 	}
 	
-	if($request == 'getcontents') {		
+	if($request == 'getcontents') {
 		
 		if(isset($_REQUEST['contenturl']) && $_REQUEST['contenturl'] != "") {
 			
@@ -82,12 +92,14 @@ if(isset($_GET['request'])) {
 					
 					$outputArray = array(
 						"success" => 1,
+						"info" => $result['info'],
 						"content" => $output
 					);					
 				}
 				else {
 					$outputArray = array(
 						"success" => 0,
+						"info" => $result['info'],
 						"message" => CURLERROR.$result['message']
 					);
 				}
