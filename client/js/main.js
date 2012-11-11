@@ -7,7 +7,8 @@ $(document).ready(function() {
 });
 
 function initEventObjects() {
-	$("#start").click(function() {
+	$("#form_settings").submit(function(event) {
+		event.preventDefault();
 		startDownload();
 	});
 	$("#stop").click(function() {
@@ -48,7 +49,7 @@ function startDownload() {
 	contenturl = $("input#url").attr("value");
 	
 	$.ajax({
-		type: 'POST',
+		type: 'GET',
 		url: "system/ajax.php?request=checkextensions",
 		beforeSend: function(){
 			writeToConsole(getGreatherThanEntity(2)+" INFO      "+getGreatherThanEntity(2)+" checking extensions");
@@ -74,7 +75,7 @@ function startDownload() {
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			writeToConsole(getGreatherThanEntity(2)+" ERROR     "+getGreatherThanEntity(2)+" "+textStatus+" "+getGreatherThanEntity(2)+" "+errorThrown,0);
-			if(debug) writeToConsole(getGreatherThanEntity(2)+" DEBUG     "+getGreatherThanEntity(2)+" "+jqXHR.responseText,0);
+			if(debugMode) writeToConsole(getGreatherThanEntity(2)+" DEBUG     "+getGreatherThanEntity(2)+" "+jqXHR.responseText,0);
 			scrollToBottom(1);
 		}
 	});
@@ -124,7 +125,7 @@ function getContents(contenturl) {
 		error: function(jqXHR, textStatus, errorThrown){
 			writeToConsole(getGreatherThanEntity(15)+" "+contenturl,0);
 			writeToConsole(getGreatherThanEntity(2)+" ERROR     "+getGreatherThanEntity(2)+" "+textStatus+" "+getGreatherThanEntity(2)+" "+errorThrown,0);
-			if(debug) writeToConsole(getGreatherThanEntity(2)+" DEBUG     "+getGreatherThanEntity(2)+" "+jqXHR.responseText,0);
+			if(debugMode) writeToConsole(getGreatherThanEntity(2)+" DEBUG     "+getGreatherThanEntity(2)+" "+jqXHR.responseText,0);
 			scrollToBottom(1);
 			hideContentLoader();
 		}
@@ -199,7 +200,7 @@ function saveImage(img,selectorAttribute) {
 			setLoadBar(0,0,1);
 			writeToConsole(getGreatherThanEntity(15)+" "+img,0);
 			writeToConsole(getGreatherThanEntity(2)+" ERROR     "+getGreatherThanEntity(2)+" "+textStatus+" "+getGreatherThanEntity(2)+" "+errorThrown,0);
-			if(debug) writeToConsole(getGreatherThanEntity(2)+" DEBUG     "+getGreatherThanEntity(2)+" "+jqXHR.responseText,0);	
+			if(debugMode) writeToConsole(getGreatherThanEntity(2)+" DEBUG     "+getGreatherThanEntity(2)+" "+jqXHR.responseText,0);	
 			scrollToBottom(1);
 		}
 	});

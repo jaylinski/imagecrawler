@@ -4,7 +4,8 @@ body {
 	margin: 0;
 }
 
-input[type="button"] {
+input[type="button"],
+input[type="submit"] {
 	font-size: 10px;
 	color: #222;
 	padding: 2px 6px;

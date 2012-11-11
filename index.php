@@ -22,8 +22,8 @@ require_once('system/config.php');
 		<link rel="icon" href="client/img/favicon.ico" type="image/x-icon" />
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/<?php echo JQUERYVERSION; ?>/jquery.min.js"></script>
 		<script type="text/javascript">
-			var name = "<?php echo NAME; ?>";
-			var debug = <?php echo DEBUG; ?>;
+			var projectName = "<?php echo NAME; ?>";
+			var debugMode = <?php echo DEBUG; ?>;
 			var startbuttonvalue = "<?php echo STARTBUTTON; ?>";
 			var stopbuttonvalue = "<?php echo STOPBUTTON; ?>";
 			var inputExtensionLength = <?php echo INPUTEXTLENGTH; ?>;
@@ -35,19 +35,21 @@ require_once('system/config.php');
 		<div id="ui">
 			<div id="ui-top">
 				<div>
-					<div class="ui-left">
-						<label for="url">URL</label>
-						<input type="text" id="url" value="<?php echo LINK; ?>" />
-						<label for="selector">SELECTOR</label>
-						<input type="text" id="selector" value="<?php echo SELECTOR; ?>" />
-						<label for="selector_attribute">ATTRIBUTE</label>
-						<input type="text" id="selector_attribute" value="<?php echo SELECTORATTRIBUTE; ?>" />
-					</div>
-					<div class="ui-right">
-						<input type="button" value="<?php echo STARTBUTTON; ?>" id="start" />
-						<input type="button" value="<?php echo STOPBUTTON; ?>" id="stop" />
-					</div>
-					<div class="clear"></div>
+					<form action="#" id="form_settings">
+						<div class="ui-left">
+							<label for="url">URL</label>
+							<input type="text" id="url" value="<?php echo LINK; ?>" />
+							<label for="selector">SELECTOR</label>
+							<input type="text" id="selector" value="<?php echo SELECTOR; ?>" />
+							<label for="selector_attribute">ATTRIBUTE</label>
+							<input type="text" id="selector_attribute" value="<?php echo SELECTORATTRIBUTE; ?>" />
+						</div>
+						<div class="ui-right">
+							<input type="submit" value="<?php echo STARTBUTTON; ?>" id="start" />
+							<input type="button" value="<?php echo STOPBUTTON; ?>" id="stop" />
+						</div>
+						<div class="clear"></div>
+					</form>
 				</div>
 			</div>
 			<div id="ui-bottom">
@@ -85,7 +87,7 @@ require_once('system/config.php');
 		<pre id="output"></pre>
 		<div id="preview"></div>
 		<div id="content">
-			<iframe id="content_iframe"><html><head></head><body></body></html></iframe>
+			<iframe src="client/iframe.html" id="content_iframe"></iframe>
 		</div>
 	</body>
 </html>

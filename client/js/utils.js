@@ -43,7 +43,7 @@ function hideContentLoader() {
 }
 
 function setTitle(text) {
-	$("title").html(name+" | "+text);
+	document.title = projectName+" | "+text;
 }
 
 function setPercentLoaded(imageNumber,linkArrayLength,error) {
