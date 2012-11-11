@@ -31,7 +31,7 @@ input#url {
 input#url.active {
 	background-image: url('../img/ajax_loader.gif');
 	padding-left: 25px;
-	width: 158px;
+	width: 178px;
 }
 
 abbr {
