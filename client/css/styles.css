@@ -94,7 +94,7 @@ h1, label {
 #content {
 	display: none;
 	height: 80%;
-	position: absolute;
+	position: fixed;
 	right: 10px;
 	top: 60px;
 }
