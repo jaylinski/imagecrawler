@@ -1,7 +1,7 @@
 <?php
 
 // core
-define("VERSION",           "0.51");
+define("VERSION",           "0.52");
 define("NAME",              "ImageCrawler");
 define("JQUERYVERSION",     "1.8.2");
 define("CONNECTTIMEOUT",    180);
