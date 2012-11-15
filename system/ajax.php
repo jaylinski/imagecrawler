@@ -18,6 +18,7 @@ if(isset($_GET['request'])) {
 		if($extension_check['success']) {
 			$outputArray = array(
 				"success" => 1,
+				"notice" => $extension_check['notice'],
 				"message" => $extension_check['message'],
 			);
 			output_array_as_json($outputArray);

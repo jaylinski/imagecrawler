@@ -43,6 +43,7 @@ function startDownload() {
 	$("#help").hide();
 	resetLoadBar();
 	resetConsole();
+	resetPreview();
 	setTitle("loading...");
 	writeToConsole(getGreatherThanEntity(15)+" STARTING DOWNLOAD PROCESS",1);
 	i = 0;
@@ -57,11 +58,12 @@ function startDownload() {
 		},
 		success: function(data){
 			if(data.success) {
-				writeToConsole(
-					getGreatherThanEntity(2)+" success   "
-					+getGreatherThanEntity(2)+" "
-					+data.message, 1
-				);
+				if(data.notice) {
+					writeToConsole(getGreatherThanEntity(2)+" warning   "+getGreatherThanEntity(2)+" "+data.message, 2);
+				} else {
+					writeToConsole(getGreatherThanEntity(2)+" success   "+getGreatherThanEntity(2)+" "+data.message, 1);
+				}
+				
 				scrollToBottom(1);
 				getContents(contenturl);
 				disableInput("#start");

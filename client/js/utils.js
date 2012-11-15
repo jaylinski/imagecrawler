@@ -11,6 +11,7 @@ function renderPreview(data) {
 				if(preview_images.length > 1) {
 					$(preview_images[previewImagesCount]).fadeOut(function() {
 						$(this).remove();
+						$("#preview div").last().remove();
 					});
 				}
 			});
@@ -24,6 +25,8 @@ function writeToConsole(text,status) {
 			$("#output").append("<span class='success'>"+getTime()+" "+text+"</span><br />");
 		} else if(status == 0) {
 			$("#output").append("<span class='error'>"+getTime()+" "+text+"</span><br />");
+		} else if(status == 2) {
+			$("#output").append("<span class='warning'>"+getTime()+" "+text+"</span><br />");
 		} else {
 			$("#output").append(getTime()+" UNKOWN STATUS "+text);
 		}
@@ -33,6 +36,10 @@ function writeToConsole(text,status) {
 }
 function resetConsole() {
 	$("#output").html("");
+}
+
+function resetPreview() {
+	$("#preview").html("");
 }
 
 function showContentLoader() {
@@ -48,8 +55,13 @@ function setTitle(text) {
 
 function setPercentLoaded(imageNumber,linkArrayLength,error) {
 	var percent = formatPercentLoaded(imageNumber,linkArrayLength);
-	setTitle(percent+"%");
-	$("#ui-bottom .ui-left h1").html(percent+"% ("+imageNumber+"/"+linkArrayLength+")");
+	if(percent == 100) {
+		setTitle("100%");
+		$("#ui-bottom .ui-left h1").html("REQUESTS COMPLETED");
+	} else {
+		setTitle(percent+"%");
+		$("#ui-bottom .ui-left h1").html(percent+"% ("+imageNumber+"/"+linkArrayLength+")");
+	}	
 	if(typeof error != "undefined") {
 		setTitle("ERROR");
 		$("#ui-bottom .ui-left h1").html("ERROR");
@@ -68,6 +80,7 @@ function setLoadBar(imageNumber,linkArrayLength,error) {
 }
 function resetLoadBar() {
 	$("#status").removeAttr("style");
+	$("#ui-bottom .ui-left h1").html("LOADING...");
 }
 
 function setValue(selector,value) {

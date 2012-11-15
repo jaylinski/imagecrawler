@@ -134,6 +134,9 @@ h1, label {
 .error {
 	color: #aa2222;
 }
+.warning {
+	color: #ee8000;
+}
 .debug {
 	color: #AA2222;
 	font-weight: bold;

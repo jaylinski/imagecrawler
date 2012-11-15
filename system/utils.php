@@ -201,7 +201,7 @@ function check_extensions() {
 				$outputArray['success'] = 0;
 				$outputArray['message'] .= "ERROR: ".$extension." extension not loaded. ";
 			}
-			if($priority == 2) {
+			else if($priority == 2) {
 				$outputArray['notice']  = 1;
 				$outputArray['message'] .= "NOTICE: ".$extension." extension should be activated. ";
 			}
