@@ -1,7 +1,43 @@
-_projektdaten/*
+# Project files #
+#################
 _projektdaten/
-_images/*
 _images/
-system/log/
-system/log/*
+
+# IDE generated files #
+#######################
 *.project
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs #
+########
+*.log
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db

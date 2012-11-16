@@ -99,7 +99,9 @@ function getContents(contenturl) {
 				writeToConsole(
 					getGreatherThanEntity(2)+" loaded    "
 					+getGreatherThanEntity(2)+" "
-					+data.info.url+" "
+					+"<a href='"+data.info.url+"' target='_blank'>"
+					+data.info.url+
+					"</a> "
 					+getGreatherThanEntity(2)+" "
 					+formatBytes(data.info.size), 1
 				);
