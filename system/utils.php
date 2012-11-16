@@ -114,7 +114,7 @@ function build_image($resultArray) {
 
 function get_content_from_url($url) {
 	make_log_dir();
-	$curl_log = fopen('log/curl_log.txt', 'w');
+	$curl_log = fopen('log/curl.log', 'w');
 	$curl_options = array(
 		CURLOPT_URL => $url,
 		CURLOPT_HEADER => 0,
