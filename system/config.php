@@ -1,7 +1,7 @@
 <?php
 
 // core
-define("VERSION",           "0.52");
+define("VERSION",           "1.0.2");
 define("NAME",              "ImageCrawler");
 define("JQUERYVERSION",     "1.8.2");
 define("CONNECTTIMEOUT",    180);
@@ -18,7 +18,6 @@ define("STOPBUTTON",        "STOP");
 define("OUTPUTPATH",        "_images/");
 define("FOLDERPATH",        "../");
 define("LOGPATH",           "system/log");		
-define("IMGPREVIEWSIZE",    1.0);
 define("DOCSPATH",          "_doc/");
 define("HELPDOC",           "help.html");
 
@@ -31,6 +30,11 @@ define("IGNOREHTTPSTATUS",  0); // TRUE to load images from http-error pages (40
 define("USETIDY",           true);
 define("ALLOWEDTAGS",       "<a><p><div><img><table><td><tr><span><ul><li><ol><b><strong><i><em><u><sup><sub><tt><h1><h2><h3><h4><h5><h6><small><big>");
 $tidyConfig =               array('fix-uri' => FALSE);
+                    
+// other
+define("INPUTEXTLENGTH",    100);
+define("IMGPREVIEWSIZE",    1.0);
+define("IMGPREVIEWLENGTH",  3);
 
 // messages
 define("NOJS",              "Activate JavaScript to use this application.");
@@ -40,14 +44,12 @@ define("NOPARAMS",          "no params found: check url");
 define("CURLERROR",         "cURL error &gt;&gt; ");
 define("INVALIDURL",        "invalid URL. provide full URL with only ASCII characters.");
 define("URLCOMPILEFAIL",    "could not compile a valid url");
+define("CHANGEDEBUG",       "Change debug settings in 'system/config.php'.");
 
 // extensions
 // values: 0 = ignore, 1 = required, 2 = recommended
 $extensions = array("Tidy"    => USETIDY,
                     "cURL"    => 1,
                     "openssl" => 2);
-                    
-// other
-define("INPUTEXTLENGTH",    100);
 
 ?>

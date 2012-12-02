@@ -5,9 +5,6 @@ function save_image($image, $contenturl) {
 	$imgPathInfo = pathinfo($image);
 	$urlPathInfo = parse_url($contenturl);
 	
-	//print_r($imgPathInfo);
-	//print_r($urlPathInfo);
-	
 	// generate url
 	if(filter_var($imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
 		$dirname = $imgPathInfo['dirname'];

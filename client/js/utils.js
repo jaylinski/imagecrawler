@@ -1,5 +1,12 @@
+/*
+ * ImageCrawler
+ *
+ * https://github.com/jaylinski/imagecrawler
+ * 
+ * Last update: 02.12.2012
+ */
+
 function renderPreview(data) {
-	var previewImagesCount = 3;
 	if($("#showpreview").attr("checked") == "checked") {
 		$("#preview").prepend(data.image);
 		$("#preview").prepend("<div class='clear'></div>");
@@ -9,7 +16,7 @@ function renderPreview(data) {
 		$(preview_images[0]).animate({height:temp_height}, 400, function() {
 			$(preview_images[0]).animate({top:'0'}, 500, function() {
 				if(preview_images.length > 1) {
-					$(preview_images[previewImagesCount]).fadeOut(function() {
+					$(preview_images[previewLength]).fadeOut(function() {
 						$(this).remove();
 						$("#preview div").last().remove();
 					});

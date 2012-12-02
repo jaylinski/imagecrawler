@@ -1,3 +1,11 @@
+/*
+ * ImageCrawler
+ *
+ * https://github.com/jaylinski/imagecrawler
+ * 
+ * Last update: 16.11.2012
+ */
+
 $(document).ready(function() {
 
 	disableInput("#showcontent");

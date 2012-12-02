@@ -1,12 +1,12 @@
 <?php
 
 /**
- * @author Jakob Linskeseder
- * 
- * == DESCRIPTION ==
- * Asynchronously saves images via cURL.
- * Optimized for Apache directory listings.
+ * ImageCrawler
  *
+ * @author  Jakob Linskeseder
+ * @version 1.0.2
+ * @see     https://github.com/jaylinski/imagecrawler
+ * @license http://creativecommons.org/licenses/by-sa/3.0/
  */
 
 require_once('system/config.php');
@@ -27,6 +27,7 @@ require_once('system/config.php');
 			var startbuttonvalue = "<?php echo STARTBUTTON; ?>";
 			var stopbuttonvalue = "<?php echo STOPBUTTON; ?>";
 			var inputExtensionLength = <?php echo INPUTEXTLENGTH; ?>;
+			var previewLength = <?php echo IMGPREVIEWLENGTH; ?>;
 		</script>
 		<script type="text/javascript" src="client/js/utils.js"></script>
 		<script type="text/javascript" src="client/js/main.js"></script>
@@ -59,7 +60,7 @@ require_once('system/config.php');
 							<?php echo NAME; ?> <?php echo VERSION; ?>
 							<?php if(DEBUG) { ?>
 								&nbsp;&nbsp;&nbsp;
-								<abbr title="Deactivate in 'system/config.php'."><span class="debug">DEBUG</span></abbr>
+								<abbr title="<?php echo CHANGEDEBUG; ?>"><span class="debug">DEBUG</span></abbr>
 							<? } ?>
 						</h1>
 					</div>
