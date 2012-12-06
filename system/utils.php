@@ -48,7 +48,7 @@ function save_image($image, $contenturl) {
 		imagecopy($dest, $src, 0, 0, 0, 0, $size[0], $size[1]);
 		
 		// output and free from memory
-		make_output_dir();
+		make_dir(FOLDERPATH.OUTPUTPATH);
 		$outputPath = FOLDERPATH.OUTPUTPATH.sanitize_file_name($imgPathInfo['filename'].$imgFileType);
 		
 		if($imagetype == IMAGETYPE_GIF){
@@ -147,7 +147,7 @@ function build_image($resultArray) {
 }
 
 function get_content_from_url($url) {
-	make_log_dir();
+	make_dir(FOLDERPATH.LOGPATH);
 	$curl_log = fopen('log/curl.log', 'w');
 	$curl_options = array(
 		CURLOPT_URL => $url,
@@ -209,14 +209,9 @@ function format_bytes($bytes) {
    else return "insanely big";
 }
 
-function make_output_dir() {
-	if(!file_exists(FOLDERPATH.OUTPUTPATH)) {
-		mkdir(FOLDERPATH.OUTPUTPATH);
-	}
-}
-function make_log_dir() {
-	if(!file_exists(FOLDERPATH.LOGPATH)) {
-		mkdir(FOLDERPATH.LOGPATH);
+function make_dir($dirpath) {
+	if(!file_exists($dirpath)) {
+		mkdir($dirpath);
 	}
 }
 
