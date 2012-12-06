@@ -2,35 +2,23 @@
 
 function save_image($image, $contenturl) {
 	
+	// build image url
 	$imgPathInfo = pathinfo($image);
-	$urlPathInfo = parse_url($contenturl);
-	
-	// generate url
-	if(filter_var($imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
-		$dirname = $imgPathInfo['dirname'];
-	} else if(filter_var("http:".$imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
-		$dirname = "http:".$imgPathInfo['dirname'];
-	} else if(filter_var("https:".$imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
-		$dirname = "https:".$imgPathInfo['dirname'];
-	} else {
-		if($urlPathInfo['path']) {
-			$urlPathPathInfo = pathinfo($urlPathInfo['path']);
-			if(strpos($urlPathPathInfo['dirname'], '\\') !== FALSE) {
-				$dirname = $urlPathInfo['scheme']."://".$urlPathInfo['host']."/".$imgPathInfo['dirname'];
-			} else {
-				$dirname = $urlPathInfo['scheme']."://".$urlPathInfo['host'].$urlPathPathInfo['dirname']."/".$imgPathInfo['dirname'];
-			}			
-		} else {
-			$dirname = $contenturl.$imgPathInfo['dirname'];
-		}
-	}
-	
-	$imgPath = $dirname."/".$imgPathInfo['basename'];
+	$imgPath = build_url($imgPathInfo, $contenturl);
 	
 	// get image from url
 	if(filter_var($imgPath, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
 		
-		$size = getimagesize($imgPath);
+		$size = @getimagesize($imgPath);
+		
+		// check if image exists
+		if(!$size) {
+			$return = array(
+				"success" => false,
+				"message" => FILTENOTFOUND." | ".$imgPath
+			);
+			return $return;
+		}
 
 		$imagetype = exif_imagetype($imgPath);
 		
@@ -49,7 +37,7 @@ function save_image($image, $contenturl) {
 		else {
 			$return = array(
 				"success" => false,
-				"message" => UNSUPPORTEDIMGTYPE
+				"message" => UNSUPPORTEDIMGTYPE." | ".image_type_to_mime_type($imagetype)
 			);
 			return $return;
 		}
@@ -98,6 +86,55 @@ function save_image($image, $contenturl) {
 	return $return;
 }
 
+function build_url($imgPathInfo, $contenturl) {
+	
+	$urlPathInfo = parse_url($contenturl);
+	
+	// handle image with url
+	if(filter_var($imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+		$dirname = $imgPathInfo['dirname'];
+	}
+	else if(filter_var("http:".$imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+		$dirname = "http:".$imgPathInfo['dirname'];
+	}
+	else if(filter_var("https:".$imgPathInfo['dirname']."/", FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+		$dirname = "https:".$imgPathInfo['dirname'];
+	}
+	// handle image with absolute/relative paths
+	else {
+		// handle image with absolute paths
+		if(strpos($imgPathInfo['dirname'], '/') === 0) {
+			$dirname = $urlPathInfo['scheme']."://".$urlPathInfo['host'].$imgPathInfo['dirname'];
+		}
+		// handle image with relative paths
+		else {
+			// handle contenturl with path
+			if($urlPathInfo['path'] && strcmp($urlPathInfo['path'],"/") != 0) {
+				$urlPathPathInfo = pathinfo($urlPathInfo['path']);
+				// handle contenturl with no dirname
+				if(strpos($urlPathPathInfo['dirname'], '\\') !== false) {
+					// handle contenturl with no dirname and a path
+					if(strcmp(substr($urlPathInfo['path'], -1),"/") == 0) {
+						$dirname = $urlPathInfo['scheme']."://".$urlPathInfo['host'].$urlPathInfo['path'].$imgPathInfo['dirname'];	
+					}
+					// handle contenturl with no dirname and no path
+					else {
+						$dirname = $urlPathInfo['scheme']."://".$urlPathInfo['host']."/".$imgPathInfo['dirname'];	
+					}
+				// handle contenturl with dirname
+				} else {
+					$dirname = $urlPathInfo['scheme']."://".$urlPathInfo['host'].$urlPathPathInfo['dirname']."/".$imgPathInfo['dirname'];			
+				}
+			// handle contenturl without path
+			} else {
+				$dirname = $contenturl.$imgPathInfo['dirname'];
+			}
+		}
+	}
+	
+	return $dirname."/".$imgPathInfo['basename'];
+}
+
 function build_message($resultArray) {
 	$message = "&gt;&gt; finished  &gt;&gt; ";
 	$message.= "<a href=".OUTPUTPATH.$resultArray['basename']." target=\"blank\">".$resultArray['basename']."</a> &gt;&gt; ".$resultArray['width']."x".$resultArray['height']." | ".$resultArray['filesize'];
@@ -117,9 +154,9 @@ function get_content_from_url($url) {
 		CURLOPT_HEADER => 0,
 		CURLOPT_CONNECTTIMEOUT => CONNECTTIMEOUT,
 		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => CURLENCODING,
 		CURLOPT_SSL_VERIFYPEER => SSLVERIFYPEER,
 		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_USERAGENT => USERAGENT,
 		CURLOPT_VERBOSE => 1,
 		CURLOPT_STDERR => $curl_log
 	);

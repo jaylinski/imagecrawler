@@ -4,7 +4,7 @@
  * ImageCrawler
  *
  * @author  Jakob Linskeseder
- * @version 1.0.2
+ * @version 1.0.3
  * @see     https://github.com/jaylinski/imagecrawler
  * @license http://creativecommons.org/licenses/by-sa/3.0/
  */
@@ -28,6 +28,7 @@ require_once('system/config.php');
 			var stopbuttonvalue = "<?php echo STOPBUTTON; ?>";
 			var inputExtensionLength = <?php echo INPUTEXTLENGTH; ?>;
 			var previewLength = <?php echo IMGPREVIEWLENGTH; ?>;
+			var contenturl;
 		</script>
 		<script type="text/javascript" src="client/js/utils.js"></script>
 		<script type="text/javascript" src="client/js/main.js"></script>

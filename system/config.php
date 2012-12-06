@@ -1,7 +1,7 @@
 <?php
 
 // core
-define("VERSION",           "1.0.2");
+define("VERSION",           "1.0.3");
 define("NAME",              "ImageCrawler");
 define("JQUERYVERSION",     "1.8.2");
 define("CONNECTTIMEOUT",    180);
@@ -22,7 +22,7 @@ define("DOCSPATH",          "_doc/");
 define("HELPDOC",           "help.html");
 
 // cURL
-define("CURLENCODING",      "UTF-8");
+define("USERAGENT",         "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)");
 define("SSLVERIFYPEER",     0); // FALSE to stop cURL from verifying the peer's certificate.
 define("IGNOREHTTPSTATUS",  0); // TRUE to load images from http-error pages (404)
 
@@ -39,7 +39,8 @@ define("IMGPREVIEWLENGTH",  3);
 // messages
 define("NOJS",              "Activate JavaScript to use this application.");
 define("UNSUPPORTEDIMGTYPE","unsupported filetype");
-define("PHPERROR",          "error in php-script &gt;&gt; ");
+define("FILTENOTFOUND",     "image not found");
+define("PHPERROR",          "error in php-script ");
 define("NOPARAMS",          "no params found: check url");
 define("CURLERROR",         "cURL error &gt;&gt; ");
 define("INVALIDURL",        "invalid URL. provide full URL with only ASCII characters.");

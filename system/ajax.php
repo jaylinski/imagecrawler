@@ -34,9 +34,9 @@ if(isset($_GET['request'])) {
 	
 	if($request == 'saveimage') {
 		
-		if(isset($_GET['image']) && isset($_POST['contenturl'])) {
+		if(isset($_POST['image']) && isset($_POST['contenturl'])) {
 			
-			$result = save_image($_GET['image'], $_POST['contenturl']);
+			$result = save_image($_POST['image'], $_POST['contenturl']);
 			
 			if($result['success']) {
 				$message = build_message($result);
@@ -51,7 +51,7 @@ if(isset($_GET['request'])) {
 			} else {
 				$outputArray = array(
 					"success" => 0,
-					"message" => PHPERROR.$result['message']
+					"message" => $result['message']
 				);
 			}
 		}

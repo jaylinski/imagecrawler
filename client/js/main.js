@@ -3,7 +3,7 @@
  *
  * https://github.com/jaylinski/imagecrawler
  * 
- * Last update: 16.11.2012
+ * Last update: 06.12.2012
  */
 
 $(document).ready(function() {
@@ -58,7 +58,7 @@ function startDownload() {
 	contenturl = $("input#url").attr("value");
 	
 	$.ajax({
-		type: 'GET',
+		type: "GET",
 		url: "system/ajax.php?request=checkextensions",
 		beforeSend: function(){
 			writeToConsole(getGreatherThanEntity(2)+" loading   "+getGreatherThanEntity(2)+" checking extensions");
@@ -73,7 +73,7 @@ function startDownload() {
 				}
 				
 				scrollToBottom(1);
-				getContents(contenturl);
+				getContents();
 				disableInput("#start");
 				setValue("#start","LOADING...");				
 			} else {
@@ -91,11 +91,11 @@ function startDownload() {
 	});
 }
 
-function getContents(contenturl) {
+function getContents() {
 	$.ajax({
-		type: 'POST',
+		type: "POST",
 		url: "system/ajax.php?request=getcontents",
-		data: "contenturl="+contenturl,
+		data: {contenturl: contenturl},
 		beforeSend: function(){
 			writeToConsole(getGreatherThanEntity(2)+" loading   "+getGreatherThanEntity(2)+" "+contenturl);
 			scrollToBottom(1);
@@ -103,6 +103,9 @@ function getContents(contenturl) {
 		},
 		success: function(data){
 			if(data.success) {
+				// update content url to cURL final url
+				contenturl = data.info.url;
+				// further stuff
 				$("#content_iframe").contents().find("body").html(unescape(data.content));
 				writeToConsole(
 					getGreatherThanEntity(2)+" loaded    "
@@ -120,11 +123,14 @@ function getContents(contenturl) {
 				var selectorAttribute = $("#selector_attribute").attr("value");
 				linkarray = $("#content_iframe").contents().find(selector);
 				linkarrayLength = linkarray.length;
-				writeToConsole(getGreatherThanEntity(2)+" searching "+getGreatherThanEntity(2)+" "+linkarrayLength+" elements found");
+				consoleElementText = "element";
+				if(linkarrayLength > 1) {
+					consoleElementText = "elements";
+				}
+				writeToConsole(getGreatherThanEntity(2)+" searching "+getGreatherThanEntity(2)+" "+linkarrayLength+" "+consoleElementText+" found");
 				iterator(i,selectorAttribute);
 				enableInput("#stop");
 			} else {
-				writeToConsole(getGreatherThanEntity(2)+" loaded    "+getGreatherThanEntity(2)+" "+data.info.url, 1);
 				writeToConsole(getGreatherThanEntity(15)+" "+data.message,0);
 				scrollToBottom(1);
 				setLoadBar(0,0,1);
@@ -179,9 +185,9 @@ function iterator(i,selectorAttribute) {
 
 function saveImage(img,selectorAttribute) {
 	$.ajax({
-		type: 'POST',
-		url: "system/ajax.php?request=saveimage&image="+img,
-		data: "contenturl="+contenturl,
+		type: "POST",
+		url: "system/ajax.php?request=saveimage",
+		data: {contenturl: contenturl, image: img},
 		beforeSend: function(){
 			writeToConsole(
 				getGreatherThanEntity(2)+" saving    "
@@ -200,12 +206,10 @@ function saveImage(img,selectorAttribute) {
 				i++;
 				iterator(i,selectorAttribute);
 			} else {
-				writeToConsole(getGreatherThanEntity(15)+" "+data.message,0);
+				writeToConsole(getGreatherThanEntity(2)+" error     "+getGreatherThanEntity(2)+" "+data.message+" | skipping image",0);
 				scrollToBottom(1);
-				setLoadBar(0,0,1);
-				setPercentLoaded(0,0,1);
-				enableInput("#start");
-				setValue("#start",startbuttonvalue);
+				i++;
+				iterator(i,selectorAttribute);
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown){
