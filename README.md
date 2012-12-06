@@ -11,7 +11,7 @@ Features
 * Images can be selected with jQuery selectors.
 * Graphical display of download progress and current pictures.
 * Optimized for Apache directory listings.
-* Can  handle JPG, PNG and GIF
+* Can  handle `JPG`, `PNG` and `GIF`
 * Preserves alpha information of images
 * Logs cURL requests in `system/log/`
 * Neat config-File: `system/config.php`
@@ -24,6 +24,10 @@ Requirements
 * cURL extension
 * Tidy extension (recommended)
 * openSSL extension (for https support)
+
+FAQ / Wiki / Changelog
+----
+https://github.com/jaylinski/imagecrawler/wiki
 
 
 Versioning
