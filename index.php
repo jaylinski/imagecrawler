@@ -6,7 +6,7 @@
  * @author  Jakob Linskeseder
  * @version 1.0.4
  * @see     https://github.com/jaylinski/imagecrawler
- * @license http://creativecommons.org/licenses/by-sa/3.0/
+ * @license https://github.com/jaylinski/imagecrawler#copyright-and-license
  */
 
 require_once('system/config.php');
