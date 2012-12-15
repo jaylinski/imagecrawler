@@ -1,7 +1,8 @@
 ImageCrawler
 ============
 
-AJAX Image Crawler, based on PHP and jQuery.
+ImageCrawler is a toolkit for asynchronously pulling images from websites.
+It's built with PHP and jQuery.
 
 
 Features
