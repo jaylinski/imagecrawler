@@ -4,7 +4,7 @@
  * ImageCrawler
  *
  * @author  Jakob Linskeseder
- * @version 1.0.3
+ * @version 1.0.4
  * @see     https://github.com/jaylinski/imagecrawler
  * @license http://creativecommons.org/licenses/by-sa/3.0/
  */

@@ -3,7 +3,7 @@
  *
  * https://github.com/jaylinski/imagecrawler
  * 
- * Last update: 02.12.2012
+ * Last update: 15.12.2012
  */
 
 body {
@@ -132,8 +132,11 @@ h1, label {
 #output a {
 	color: #22aa22;
 }
-#output a:hover{
+#output a:hover {
 	color: #000;
+}
+#output .error a {
+	color: inherit;
 }
 
 .success {

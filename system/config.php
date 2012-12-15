@@ -1,15 +1,15 @@
 <?php
 
 // core
-define("VERSION",           "1.0.3");
+define("VERSION",           "1.0.4");
 define("NAME",              "ImageCrawler");
-define("JQUERYVERSION",     "1.8.2");
+define("JQUERYVERSION",     "1.8.3");
 define("CONNECTTIMEOUT",    180);
 define("DEBUG",             true);
 
 // default values
 define("LINK",              "http://github.com/");
-define("SELECTOR",          "a img");
+define("SELECTOR",          "img");
 define("SELECTORATTRIBUTE", "src");
 define("STARTBUTTON",       "START DOWNLOAD");
 define("STOPBUTTON",        "STOP");
@@ -22,9 +22,10 @@ define("DOCSPATH",          "_doc/");
 define("HELPDOC",           "help.html");
 
 // cURL
-define("USERAGENT",         "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)");
+define("USERAGENT",         "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"); // some websites require http requests with useragents 
 define("SSLVERIFYPEER",     0); // FALSE to stop cURL from verifying the peer's certificate.
-define("IGNOREHTTPSTATUS",  0); // TRUE to load images from http-error pages (404)
+define("IGNOREHTTPSTATUS",  0); // TRUE to ignore 'allowedHttpCodes'
+$allowedHttpCodes =         array(200); // add http codes to load images from error pages (404,403,...)
 
 // tidy
 define("USETIDY",           true);
@@ -43,6 +44,7 @@ define("FILTENOTFOUND",     "image not found");
 define("PHPERROR",          "error in php-script ");
 define("NOPARAMS",          "no params found: check url");
 define("CURLERROR",         "cURL error &gt;&gt; ");
+define("CURLHTTPNOTALLOWED","check out 'system/config.php' and enable 'IGNOREHTTPSTATUS' if you want to download images from all pages");
 define("INVALIDURL",        "invalid URL. provide full URL with only ASCII characters.");
 define("URLCOMPILEFAIL",    "could not compile a valid url");
 define("CHANGEDEBUG",       "Change debug settings in 'system/config.php'.");

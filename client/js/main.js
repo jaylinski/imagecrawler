@@ -3,7 +3,7 @@
  *
  * https://github.com/jaylinski/imagecrawler
  * 
- * Last update: 06.12.2012
+ * Last update: 15.12.2012
  */
 
 $(document).ready(function() {
@@ -70,8 +70,7 @@ function startDownload() {
 					writeToConsole(getGreatherThanEntity(2)+" warning   "+getGreatherThanEntity(2)+" "+data.message, 2);
 				} else {
 					writeToConsole(getGreatherThanEntity(2)+" success   "+getGreatherThanEntity(2)+" "+data.message, 1);
-				}
-				
+				}				
 				scrollToBottom(1);
 				getContents();
 				disableInput("#start");
@@ -105,8 +104,8 @@ function getContents() {
 			if(data.success) {
 				// update content url to cURL final url
 				contenturl = data.info.url;
-				// further stuff
-				$("#content_iframe").contents().find("body").html(unescape(data.content));
+				// add loaded content to iframe
+				$("#content_iframe").contents().find("body").html(data.content);
 				writeToConsole(
 					getGreatherThanEntity(2)+" loaded    "
 					+getGreatherThanEntity(2)+" "
@@ -123,15 +122,18 @@ function getContents() {
 				var selectorAttribute = $("#selector_attribute").attr("value");
 				linkarray = $("#content_iframe").contents().find(selector);
 				linkarrayLength = linkarray.length;
-				consoleElementText = "element";
-				if(linkarrayLength > 1) {
-					consoleElementText = "elements";
+				consoleElementText = "elements";
+				if(linkarrayLength == 1) {
+					consoleElementText = "element";
 				}
 				writeToConsole(getGreatherThanEntity(2)+" searching "+getGreatherThanEntity(2)+" "+linkarrayLength+" "+consoleElementText+" found");
 				iterator(i,selectorAttribute);
 				enableInput("#stop");
 			} else {
 				writeToConsole(getGreatherThanEntity(15)+" "+data.message,0);
+				if(data.messagedescription) {
+					writeToConsole(getGreatherThanEntity(15)+" "+data.messagedescription,0);
+				}
 				scrollToBottom(1);
 				setLoadBar(0,0,1);
 				hideContentLoader();

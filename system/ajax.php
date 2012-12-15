@@ -101,7 +101,8 @@ if(isset($_GET['request'])) {
 					$outputArray = array(
 						"success" => 0,
 						"info" => $result['info'],
-						"message" => CURLERROR.$result['message']
+						"message" => CURLERROR.$result['message'],
+						"messagedescription" => $result['messagedescription']
 					);
 				}
 			} else {

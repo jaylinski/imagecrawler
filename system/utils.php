@@ -1,7 +1,7 @@
 <?php
 
-function save_image($image, $contenturl) {
-	
+function save_image($image, $contenturl)
+{
 	// build image url
 	$imgPathInfo = pathinfo($image);
 	$imgPath = build_url($imgPathInfo, $contenturl);
@@ -86,8 +86,8 @@ function save_image($image, $contenturl) {
 	return $return;
 }
 
-function build_url($imgPathInfo, $contenturl) {
-	
+function build_url($imgPathInfo, $contenturl)
+{
 	$urlPathInfo = parse_url($contenturl);
 	
 	// handle image with url
@@ -135,18 +135,22 @@ function build_url($imgPathInfo, $contenturl) {
 	return $dirname."/".$imgPathInfo['basename'];
 }
 
-function build_message($resultArray) {
+function build_message($resultArray)
+{
 	$message = "&gt;&gt; finished  &gt;&gt; ";
 	$message.= "<a href=".OUTPUTPATH.$resultArray['basename']." target=\"blank\">".$resultArray['basename']."</a> &gt;&gt; ".$resultArray['width']."x".$resultArray['height']." | ".$resultArray['filesize'];
 	return $message;		
 }
-
-function build_image($resultArray) {
+function build_image($resultArray)
+{
 	$image = "<img src=\"".$resultArray['imgpath']."\" alt=\"\" width=\"".$resultArray['width']*IMGPREVIEWSIZE."\" height=\"".$resultArray['height']*IMGPREVIEWSIZE."\" />";
 	return $image;			
 }
 
-function get_content_from_url($url) {
+function get_content_from_url($url)
+{
+	global $allowedHttpCodes;
+	
 	make_dir(FOLDERPATH.LOGPATH);
 	$curl_log = fopen('log/curl.log', 'w');
 	$curl_options = array(
@@ -172,16 +176,18 @@ function get_content_from_url($url) {
 				"url" => 0,
 				"size" => 0
 			),
-			"message" => curl_error($curl)
+			"message" => curl_error($curl),
+			"messagedescription" => false
 		);
-	} else if($output_info["http_code"] == 404 && !IGNOREHTTPSTATUS) {
+	} else if(!in_array($output_info["http_code"], $allowedHttpCodes, true) && !IGNOREHTTPSTATUS) {
 		$return = array(
 			"success" => false,
 			"info" => array(
 				"url" => $output_info["url"],
 				"size" => 0
 			),
-			"message" => $output_info["http_code"]." site not found",
+			"message" => "HTTP Status Code <a href=\"http://en.wikipedia.org/wiki/List_of_HTTP_status_codes\" target=\"_blank\">".$output_info["http_code"]."</a>",
+			"messagedescription" => CURLHTTPNOTALLOWED
 		);
 	} else {
 		$return = array(
@@ -196,12 +202,14 @@ function get_content_from_url($url) {
 	return $return;
 }
 
-function output_array_as_json($outputArray) {
+function output_array_as_json($outputArray)
+{
 	header('Content-type: application/json');
 	echo json_encode($outputArray);
 }
 
-function format_bytes($bytes) {
+function format_bytes($bytes)
+{
    if ($bytes < 1024) return $bytes.' Bytes';
    else if ($bytes < 1048576) return round($bytes / 1024, 2).' KB';
    else if ($bytes < 1073741824) return round($bytes / 1048576, 2).' MB';
@@ -209,18 +217,20 @@ function format_bytes($bytes) {
    else return "insanely big";
 }
 
-function make_dir($dirpath) {
+function make_dir($dirpath)
+{
 	if(!file_exists($dirpath)) {
 		mkdir($dirpath);
 	}
 }
 
-function sanitize_file_name($str) {
+function sanitize_file_name($str)
+{
 	return preg_replace('/([^[:alnum:]\._-\s]*)/','',$str);
 }
 
-function check_extensions() {
-	
+function check_extensions()
+{
 	global $extensions;
 	$outputArray = array("success" => 1, "notice" => 0, "message" => "");
 	
