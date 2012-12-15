@@ -50,10 +50,6 @@ And constructed with the following guidelines:
 * New additions without breaking backward compatibility bumps the minor (and resets the patch)
 * Bug fixes and misc changes bumps the patch
 
-Changelogs can be found here:
-
-https://github.com/jaylinski/imagecrawler/wiki
-
 
 Bug tracker
 -----------
