@@ -210,11 +210,11 @@ function output_array_as_json($outputArray)
 
 function format_bytes($bytes)
 {
-   if ($bytes < 1024) return $bytes.' Bytes';
-   else if ($bytes < 1048576) return round($bytes / 1024, 2).' KB';
-   else if ($bytes < 1073741824) return round($bytes / 1048576, 2).' MB';
-   else if ($bytes < 1099511627776) return round($bytes / 1073741824, 2).' GB';
-   else return "insanely big";
+	if ($bytes < 1024) return $bytes.' Bytes';
+	else if ($bytes < 1048576) return round($bytes / 1024, 2).' KB';
+	else if ($bytes < 1073741824) return round($bytes / 1048576, 2).' MB';
+	else if ($bytes < 1099511627776) return round($bytes / 1073741824, 2).' GB';
+	else return "insanely big";
 }
 
 function make_dir($dirpath)
