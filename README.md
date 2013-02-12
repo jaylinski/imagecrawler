@@ -8,7 +8,7 @@ It's built with PHP and jQuery.
 Features
 --------
 
-* Saves images via cURL and JavaScript.
+* Asynchronously saves images from websites via cURL and JavaScript.
 * Images can be selected with jQuery selectors.
 * Graphical display of download progress and current pictures.
 * Optimized for Apache directory listings.
