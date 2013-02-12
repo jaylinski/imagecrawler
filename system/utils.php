@@ -7,8 +7,8 @@ function save_image($image, $contenturl)
 	$imgPath = build_url($imgPathInfo, $contenturl);
 	
 	// get image from url
-	if(filter_var($imgPath, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
-		
+	if(filter_var($imgPath, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))
+	{		
 		$size = @getimagesize($imgPath);
 		
 		// check if image exists
@@ -22,15 +22,15 @@ function save_image($image, $contenturl)
 
 		$imagetype = exif_imagetype($imgPath);
 		
-		if($imagetype == IMAGETYPE_GIF){
+		if($imagetype == IMAGETYPE_GIF) {
 			$src = imagecreatefromgif($imgPath);
 			$imgFileType = ".gif";
 		}
-		else if($imagetype == IMAGETYPE_JPEG){
+		else if($imagetype == IMAGETYPE_JPEG) {
 			$src = imagecreatefromjpeg($imgPath);
 			$imgFileType = ".jpg";
 		}
-		else if($imagetype == IMAGETYPE_PNG){
+		else if($imagetype == IMAGETYPE_PNG) {
 			$src = imagecreatefrompng($imgPath);
 			$imgFileType = ".png";
 		}
@@ -51,13 +51,13 @@ function save_image($image, $contenturl)
 		make_dir(FOLDERPATH.OUTPUTPATH);
 		$outputPath = FOLDERPATH.OUTPUTPATH.sanitize_file_name($imgPathInfo['filename'].$imgFileType);
 		
-		if($imagetype == IMAGETYPE_GIF){
+		if($imagetype == IMAGETYPE_GIF) {
 			imagegif($dest, $outputPath);
 		}
-		else if($imagetype == IMAGETYPE_JPEG){
+		else if($imagetype == IMAGETYPE_JPEG) {
 			imagejpeg($dest, $outputPath);
 		}
-		else if($imagetype == IMAGETYPE_PNG){
+		else if($imagetype == IMAGETYPE_PNG) {
 			imagepng($dest, $outputPath);
 		}
 	
@@ -74,9 +74,9 @@ function save_image($image, $contenturl)
 			"height" => $size[1],
 			"basename" => sanitize_file_name($imgPathInfo['filename'].$imgFileType),
 			"imgpath" => $imgPath
-		);
-		
-	} else {
+		);		
+	}
+	else {
 		$return = array(
 			"success" => false,
 			"message" => URLCOMPILEFAIL.": ".$imgPath
@@ -180,7 +180,8 @@ function get_content_from_url($url)
 			"message" => curl_error($curl),
 			"messagedescription" => false
 		);
-	} else if(!in_array($output_info["http_code"], $allowedHttpCodes, true) && !IGNOREHTTPSTATUS) {
+	}
+	else if(!in_array($output_info["http_code"], $allowedHttpCodes, true) && !IGNOREHTTPSTATUS) {
 		$return = array(
 			"success" => false,
 			"info" => array(
@@ -190,7 +191,8 @@ function get_content_from_url($url)
 			"message" => "HTTP Status Code <a href=\"http://en.wikipedia.org/wiki/List_of_HTTP_status_codes\" target=\"_blank\">".$output_info["http_code"]."</a>",
 			"messagedescription" => CURLHTTPNOTALLOWED
 		);
-	} else {
+	}
+	else {
 		$return = array(
 			"success" => true,
 			"info" => array(
@@ -235,8 +237,10 @@ function check_extensions()
 	global $extensions;
 	$outputArray = array("success" => 1, "notice" => 0, "message" => "");
 	
-	foreach($extensions as $extension => $priority) {
-		if (!extension_loaded($extension)) {
+	foreach($extensions as $extension => $priority)
+	{
+		if (!extension_loaded($extension))
+		{
 			if($priority == 1) {
 				$outputArray['success'] = 0;
 				$outputArray['message'] .= "ERROR: ".$extension." extension not loaded. ";
