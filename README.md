@@ -27,7 +27,7 @@ https://github.com/jaylinski/imagecrawler/wiki
 Requirements
 ------------
 * Webserver with at least PHP 5.3
-* cURL extension
+* cURL extension (7.19.4 or higher)
 * Tidy extension (recommended)
 * openSSL extension (for https support)
 
@@ -62,7 +62,7 @@ https://github.com/jaylinski/imagecrawler/issues
 Copyright and license
 ---------------------
 
-Copyright (c) 2012 Jakob Linskeseder
+Copyright &copy; Jakob Linskeseder
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

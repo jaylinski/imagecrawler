@@ -1,7 +1,7 @@
 <?php
 
 // core
-define("VERSION",           "1.0.4");
+define("VERSION",           "1.0.5");
 define("NAME",              "ImageCrawler");
 define("JQUERYVERSION",     "1.8.3");
 define("CONNECTTIMEOUT",    180);
@@ -22,9 +22,10 @@ define("DOCSPATH",          "_doc/");
 define("HELPDOC",           "help.html");
 
 // cURL
-define("USERAGENT",         "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"); // some websites require http requests with useragents 
+define("USERAGENT",         "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"); // some websites require http requests with useragents
 define("SSLVERIFYPEER",     0); // FALSE to stop cURL from verifying the peer's certificate.
 define("IGNOREHTTPSTATUS",  0); // TRUE to ignore 'allowedHttpCodes'
+define("REDIRPROTOCOLS",	CURLPROTO_HTTP|CURLPROTO_HTTPS); // this setting prevents a libcurl SASL buffer overflow vulnerability
 $allowedHttpCodes =         array(200); // add http codes to load images from error pages (404,403,...)
 
 // tidy

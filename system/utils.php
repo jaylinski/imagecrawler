@@ -155,13 +155,14 @@ function get_content_from_url($url)
 	$curl_log = fopen('log/curl.log', 'w');
 	$curl_options = array(
 		CURLOPT_URL => $url,
-		CURLOPT_HEADER => 0,
+		CURLOPT_HEADER => false,
 		CURLOPT_CONNECTTIMEOUT => CONNECTTIMEOUT,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_SSL_VERIFYPEER => SSLVERIFYPEER,
 		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_REDIR_PROTOCOLS => REDIRPROTOCOLS,
 		CURLOPT_USERAGENT => USERAGENT,
-		CURLOPT_VERBOSE => 1,
+		CURLOPT_VERBOSE => true,
 		CURLOPT_STDERR => $curl_log
 	);
 	$curl = curl_init();
