@@ -29,8 +29,8 @@ define("REDIRPROTOCOLS",    CURLPROTO_HTTP|CURLPROTO_HTTPS); // this setting pre
 $allowedHttpCodes =         array(200); // add http codes to load images from error pages (404,403,...)
 
 // tidy
-define("USETIDY",           true);
 define("ALLOWEDTAGS",       "<a><p><div><img><table><td><tr><span><ul><li><ol><b><strong><i><em><u><sup><sub><tt><h1><h2><h3><h4><h5><h6><small><big>");
+define("USETIDY",           true);
 $tidyConfig =               array('fix-uri' => FALSE);
                     
 // other
