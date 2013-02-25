@@ -62,7 +62,7 @@ require_once('system/config.php');
 							<?php if(DEBUG) { ?>
 								&nbsp;&nbsp;&nbsp;
 								<abbr title="<?php echo CHANGEDEBUG; ?>"><span class="debug">DEBUG</span></abbr>
-							<? } ?>
+							<?php } ?>
 						</h1>
 					</div>
 					<div class="ui-right">
