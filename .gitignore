@@ -6,6 +6,7 @@ _images/
 # IDE generated files #
 #######################
 *.project
+/.idea/
 
 # Packages #
 ############
