@@ -25,8 +25,8 @@ define("HELPDOC",           "help.html");
 define("USERAGENT",         "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"); // some websites require http requests with useragents
 define("SSLVERIFYPEER",     0); // FALSE to stop cURL from verifying the peer's certificate.
 define("REDIRPROTOCOLS",    CURLPROTO_HTTP|CURLPROTO_HTTPS); // this setting prevents a libcurl SASL buffer overflow vulnerability
-define("IGNOREHTTPSTATUS",  0); // TRUE to ignore 'allowedHttpCodes'
-$allowedHttpCodes =         array(200); // add http codes to load images from error pages (404,403,...)
+define("IGNOREHTTPSTATUS",  0); // TRUE to ignore 'allowedHttpStatusCodes'
+$allowedHttpStatusCodes =   array(200); // add http status codes to load images from error pages (404,403,...)
 
 // tidy
 define("ALLOWEDTAGS",       "<a><p><div><img><table><td><tr><span><ul><li><ol><b><strong><i><em><u><sup><sub><tt><h1><h2><h3><h4><h5><h6><small><big>");

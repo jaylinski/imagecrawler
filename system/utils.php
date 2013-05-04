@@ -149,7 +149,7 @@ function build_image($resultArray)
 
 function get_content_from_url($url)
 {
-	global $allowedHttpCodes;
+	global $allowedHttpStatusCodes;
 	
 	make_dir(FOLDERPATH.LOGPATH);
 	$curl_log = fopen('log/curl.log', 'w');
@@ -181,7 +181,7 @@ function get_content_from_url($url)
 			"messagedescription" => false
 		);
 	}
-	else if(!in_array($output_info["http_code"], $allowedHttpCodes, true) && !IGNOREHTTPSTATUS) {
+	else if(!in_array($output_info["http_code"], $allowedHttpStatusCodes, true) && !IGNOREHTTPSTATUS) {
 		$return = array(
 			"success" => false,
 			"info" => array(
