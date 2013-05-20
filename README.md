@@ -16,7 +16,7 @@ Features
 * Preserves alpha information of images
 * Logs cURL requests in `system/log/`
 * Neat config-File: `system/config.php`
-* Supports HTTPS
+* Supports HTTPS, XML
 
 
 How to use
