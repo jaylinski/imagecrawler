@@ -1,10 +1,14 @@
 <?php
 
-function save_image($image, $contenturl)
+function save_image($image, $imagepath, $contenturl)
 {
 	// build image url
 	$imgPathInfo = pathinfo($image);
-	$imgPath = build_url($imgPathInfo, $contenturl);
+	if(empty($imagepath)) {
+		$imgPath = build_url($imgPathInfo, $contenturl);
+	} else {
+		$imgPath = $imagepath.$imgPathInfo['basename'];
+	}	
 	
 	// get image from url
 	if(filter_var($imgPath, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))

@@ -27,6 +27,10 @@ function initEventObjects() {
 		$("#output").toggle();
 		scrollToBottom(1);
 	});
+	$("#show-extended-options").click(function() {
+		$(".ui-left.hide").toggle();
+		return false;
+	});
 	$("#showcontent").click(function() {
 		$("#content").toggle();
 	});
@@ -120,6 +124,10 @@ function getContents() {
 				enableInput("#showcontent");
 				var selector = $("#selector").attr("value");
 				var selectorAttribute = $("#selector_attribute").attr("value");
+				if(selectorAttribute == '') {
+					selectorAttribute = null;
+				}
+				var imgPath = $("input#imagepath").attr("value");
 				linkarray = $("#content_iframe").contents().find(selector);
 				linkarrayLength = linkarray.length;
 				consoleElementText = "elements";
@@ -127,7 +135,7 @@ function getContents() {
 					consoleElementText = "element";
 				}
 				writeToConsole(getGreatherThanEntity(2)+" searching "+getGreatherThanEntity(2)+" "+linkarrayLength+" "+consoleElementText+" found");
-				iterator(i,selectorAttribute);
+				iterator(i,imgPath,selectorAttribute);
 				enableInput("#stop");
 			} else {
 				writeToConsole(getGreatherThanEntity(15)+" "+data.message,0);
@@ -152,11 +160,16 @@ function getContents() {
 	});
 }
 
-function iterator(i,selectorAttribute) {
+function iterator(i,imgPath,selectorAttribute) {
 	if(linkarray.length > i) {
-		var img = $(linkarray[i]).attr(selectorAttribute);
+		var img = null;
+		if(selectorAttribute != null) {
+			img = $(linkarray[i]).attr(selectorAttribute);
+		} else {
+			img = $(linkarray[i]).text();
+		}	
 		if(img != "" && img !== undefined) {
-			saveImage(img,selectorAttribute);
+			saveImage(img,imgPath,selectorAttribute);
 		} else {
 			var debugHtml = $(linkarray[i]).prop('outerHTML');
 			debugHtml = $('<div />').text(debugHtml).html();
@@ -185,11 +198,11 @@ function iterator(i,selectorAttribute) {
 	}
 }
 
-function saveImage(img,selectorAttribute) {
+function saveImage(img,imgPath,selectorAttribute) {
 	$.ajax({
 		type: "POST",
 		url: "system/ajax.php?request=saveimage",
-		data: {contenturl: contenturl, image: img},
+		data: {contenturl: contenturl, image: img, imagepath: imgPath},
 		beforeSend: function(){
 			writeToConsole(
 				getGreatherThanEntity(2)+" saving    "
@@ -206,13 +219,12 @@ function saveImage(img,selectorAttribute) {
 				renderPreview(data);
 				scrollToBottom(1);
 				i++;
-				iterator(i,selectorAttribute);
 			} else {
 				writeToConsole(getGreatherThanEntity(2)+" error     "+getGreatherThanEntity(2)+" "+data.message+" | skipping image",0);
 				scrollToBottom(1);
 				i++;
-				iterator(i,selectorAttribute);
 			}
+			iterator(i,imgPath,selectorAttribute);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			setLoadBar(0,0,1);

@@ -3,7 +3,7 @@
  *
  * https://github.com/jaylinski/imagecrawler
  * 
- * Last update: 15.12.2012
+ * Last update: 20.05.2013
  */
 
 body {
@@ -73,8 +73,21 @@ h1, label {
 .ui-left {
 	float: left;
 }
+.ui-left.hide {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
 .ui-right {
 	float: right;
+}
+.ui-left #show-extended-options {
+    display: inline-block;
+    height: 24px;
+    width: 30px;
+    background: transparent url('../img/options.png') scroll no-repeat right 0;
+    vertical-align: middle;
 }
 
 #status {
@@ -152,6 +165,9 @@ h1, label {
 	color: #AA2222;
 	font-weight: bold;
 	border-bottom: 1px dotted #666;
+}
+.hide {
+    display: none;
 }
 .clear {
 	clear: both;

@@ -1,7 +1,7 @@
 <?php
 
 // core
-define("VERSION",           "1.0.5");
+define("VERSION",           "1.1.0");
 define("NAME",              "ImageCrawler");
 define("JQUERYVERSION",     "1.8.3");
 define("CONNECTTIMEOUT",    180);
@@ -17,7 +17,7 @@ define("STOPBUTTON",        "STOP");
 // paths & files
 define("OUTPUTPATH",        "_images/");
 define("FOLDERPATH",        "../");
-define("LOGPATH",           "system/log");		
+define("LOGPATH",           "system/log");
 define("DOCSPATH",          "_doc/");
 define("HELPDOC",           "help.html");
 
@@ -29,6 +29,7 @@ define("IGNOREHTTPSTATUS",  0); // TRUE to ignore 'allowedHttpStatusCodes'
 $allowedHttpStatusCodes =   array(200); // add http status codes to load images from error pages (404,403,...)
 
 // tidy
+define("USEALLOWEDTAGS",    true);
 define("ALLOWEDTAGS",       "<a><p><div><img><table><td><tr><span><ul><li><ol><b><strong><i><em><u><sup><sub><tt><h1><h2><h3><h4><h5><h6><small><big>");
 define("USETIDY",           true);
 $tidyConfig =               array('fix-uri' => FALSE);

@@ -4,7 +4,7 @@
  * ImageCrawler
  *
  * @author  Jakob Linskeseder
- * @version 1.0.5
+ * @version 1.1.0
  * @see     https://github.com/jaylinski/imagecrawler
  * @license https://github.com/jaylinski/imagecrawler#copyright-and-license
  */
@@ -45,10 +45,16 @@ require_once('system/config.php');
 							<input type="text" id="selector" value="<?php echo SELECTOR; ?>" />
 							<label for="selector_attribute">ATTRIBUTE</label>
 							<input type="text" id="selector_attribute" value="<?php echo SELECTORATTRIBUTE; ?>" />
+							<a href="" id="show-extended-options" title="SHOW EXTENDED OPTIONS"></a>
 						</div>
 						<div class="ui-right">
 							<input type="submit" value="<?php echo STARTBUTTON; ?>" id="start" />
 							<input type="button" value="<?php echo STOPBUTTON; ?>" id="stop" />
+						</div>
+						<div class="clear"></div>
+						<div class="ui-left hide">
+							<label for="imagepath">IMAGEPATH</label>
+							<input type="text" id="imagepath" value="" />
 						</div>
 						<div class="clear"></div>
 					</form>

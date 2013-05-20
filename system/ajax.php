@@ -36,7 +36,7 @@ if(isset($_GET['request']))
 	{		
 		if(isset($_POST['image']) && isset($_POST['contenturl']))
 		{			
-			$result = save_image($_POST['image'], $_POST['contenturl']);
+			$result = save_image($_POST['image'], $_POST['imagepath'], $_POST['contenturl']);
 			
 			if($result['success'])
 			{
@@ -91,7 +91,9 @@ if(isset($_GET['request']))
 						$output = $output->value;
 					}
 					
-					$output = strip_tags($output,ALLOWEDTAGS);
+					if(USEALLOWEDTAGS) {
+						$output = strip_tags($output,ALLOWEDTAGS);
+					}					
 					
 					$outputArray = array(
 						"success" => 1,
