@@ -167,18 +167,18 @@ function iterator(i,imgPath,selectorAttribute) {
 			img = $(linkarray[i]).attr(selectorAttribute);
 		} else {
 			img = $(linkarray[i]).text();
-		}	
+		}
 		if(img != "" && img !== undefined) {
 			saveImage(img,imgPath,selectorAttribute);
+			setLoadBar(i,linkarrayLength);
+			setPercentLoaded(i,linkarrayLength);
 		} else {
 			var debugHtml = $(linkarray[i]).prop('outerHTML');
 			debugHtml = $('<div />').text(debugHtml).html();
-			writeToConsole(getGreatherThanEntity(2)+" INFO      "+getGreatherThanEntity(2)+" SKIPPED EMPTY IMG "+getGreatherThanEntity(2)+" "+debugHtml,0);
+			writeToConsole(getGreatherThanEntity(2)+" INFO      "+getGreatherThanEntity(2)+" skipped empty img "+getGreatherThanEntity(2)+" "+debugHtml,0);
 			i++;
 			iterator(i,selectorAttribute);
 		}		
-		setLoadBar(i,linkarrayLength);
-		setPercentLoaded(i,linkarrayLength);
 	} else if(linkarray.length == 0) {
 		writeToConsole(getGreatherThanEntity(15)+" ERROR: NO DATA AVAILABLE "+getGreatherThanEntity(2)+" CHECK URL AND SELECTOR",0);
 		scrollToBottom(1);
