@@ -233,7 +233,7 @@ function make_dir($dirpath)
 
 function sanitize_file_name($str)
 {
-	return preg_replace('/([^[:alnum:]\._-\s]*)/','',$str);
+	return preg_replace('/([^[:alnum:]\._\-\s]*)/','',$str);
 }
 
 function check_extensions()

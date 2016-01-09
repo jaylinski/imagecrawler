@@ -1,7 +1,7 @@
 <?php
 
 // core
-define("VERSION",           "1.1.2");
+define("VERSION",           "1.1.3");
 define("NAME",              "ImageCrawler");
 define("JQUERYVERSION",     "1.8.3");
 define("CONNECTTIMEOUT",    180);
@@ -32,11 +32,11 @@ $allowedHttpStatusCodes =   array(200); // add http status codes to load images 
 define("USEALLOWEDTAGS",    true);
 define("ALLOWEDTAGS",       "<a><p><div><img><table><td><tr><span><ul><li><ol><b><strong><i><em><u><sup><sub><tt><h1><h2><h3><h4><h5><h6><small><big>");
 define("USETIDY",           true);
-$tidyConfig =               array('fix-uri' => FALSE);
+$tidyConfig =               array('fix-uri' => false);
                     
 // other
 define("INPUTEXTLENGTH",    100);
-define("IMGPREVIEWSIZE",    1.0);
+define("IMGPREVIEWSIZE",    0.5);
 define("IMGPREVIEWLENGTH",  3);
 
 // messages
@@ -55,6 +55,8 @@ define("CHANGEDEBUG",       "Change debug settings in 'system/config.php'.");
 // values: 0 = ignore, 1 = required, 2 = recommended
 $extensions = array("Tidy"    => USETIDY,
                     "cURL"    => 1,
+                    "exif"    => 1,
+                    "gd"      => 1,
                     "openssl" => 2);
 
 ?>
