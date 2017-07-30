@@ -12,19 +12,8 @@ function save_image($image, $imagepath, $contenturl)
 	
 	// get image from url
 	if(filter_var($imgPath, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))
-	{		
-		$size = @getimagesize($imgPath);
-		
-		// check if image exists
-		if(!$size) {
-			$return = array(
-				"success" => false,
-				"message" => FILTENOTFOUND." | ".$imgPath
-			);
-			return $return;
-		}
-
-		$imagetype = exif_imagetype($imgPath);
+	{
+		$imagetype = @exif_imagetype($imgPath);
 		
 		if($imagetype == IMAGETYPE_GIF) {
 			$src = imagecreatefromgif($imgPath);
@@ -38,13 +27,15 @@ function save_image($image, $imagepath, $contenturl)
 			$src = imagecreatefrompng($imgPath);
 			$imgFileType = ".png";
 		}
-		else {
-			$return = array(
-				"success" => false,
-				"message" => UNSUPPORTEDIMGTYPE." | ".image_type_to_mime_type($imagetype)
-			);
-			return $return;
-		}
+        else {
+            $return = array(
+                "success" => false,
+                "message" => UNSUPPORTEDIMGTYPE." | ".image_type_to_mime_type($imagetype)
+            );
+            return $return;
+        }
+
+        $size = getimagesize($imgPath);
 		
 		$dest = imagecreatetruecolor($size[0], $size[1]);
 		imagealphablending($dest, false);

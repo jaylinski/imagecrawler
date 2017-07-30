@@ -1,14 +1,14 @@
 <?php
 
 // core
-define("VERSION",           "1.1.3");
+define("VERSION",           "1.1.4");
 define("NAME",              "ImageCrawler");
 define("JQUERYVERSION",     "1.8.3");
 define("CONNECTTIMEOUT",    180);
 define("DEBUG",             true);
 
 // default values
-define("LINK",              "http://github.com/");
+define("LINK",              "https://github.com/");
 define("SELECTOR",          "img");
 define("SELECTORATTRIBUTE", "src");
 define("STARTBUTTON",       "START DOWNLOAD");
@@ -41,8 +41,7 @@ define("IMGPREVIEWLENGTH",  3);
 
 // messages
 define("NOJS",              "Activate JavaScript to use this application.");
-define("UNSUPPORTEDIMGTYPE","unsupported filetype");
-define("FILTENOTFOUND",     "image not found");
+define("UNSUPPORTEDIMGTYPE","unsupported filetype or image not found");
 define("PHPERROR",          "error in php-script ");
 define("NOPARAMS",          "no params found: check url");
 define("CURLERROR",         "cURL error &gt;&gt; ");
